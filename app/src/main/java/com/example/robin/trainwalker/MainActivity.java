@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.robin.trainwalker.dummy.DummyContent;
+
+public class MainActivity extends AppCompatActivity implements TrainFragment.OnListFragmentInteractionListener{
 
     private TextView mTextMessage;
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = HomeFragment.newInstance();
                     break;
                 case R.id.navigation_trains:
-                    selectedFragment = HomeFragment.newInstance();
+                    selectedFragment = TrainFragment.newInstance(20);
                     break;
                 case R.id.navigation_settings:
                     selectedFragment = SettingsFragment.newInstance();
@@ -52,4 +54,8 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
 }
