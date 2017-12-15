@@ -8,14 +8,14 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_map"
         android:icon="@android:drawable/ic_menu_mylocation"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_map" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_trains"
         android:icon="?android:attr/actionModeFindDrawable"
-        android:title="@string/title_notifications" />
+        android:title="@string/title_trains" />
     <item
         android:id="@+id/navigation_settings"
         android:icon="@android:drawable/ic_menu_preferences"

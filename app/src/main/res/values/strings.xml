@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">TrainWalker</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Thuis</string>
+    <string name="title_map">Kaart</string>
+    <string name="title_trains">Treinen</string>
     <string name="title_settings">Instellingen</string>
     <string name="hello_blank_fragment">Fragment Page Home</string>
     <string name="settings_speedHintValue">5</string>
