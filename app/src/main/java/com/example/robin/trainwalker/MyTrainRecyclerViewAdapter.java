@@ -25,8 +25,8 @@ public class MyTrainRecyclerViewAdapter extends RecyclerView.Adapter<MyTrainRecy
     @Override
     public void onBindViewHolder(TrainViewHolder holder, int position) {
         Train train = trains.get(position);
-        holder.trainName.setText(trains.get(position).getName());
-        holder.departTimeText.setText(trains.get(position).getDepartureTime());
+        holder.trainName.setText(train.getName());
+        holder.departTimeText.setText(train.getDepartureTime());
     }
 
     @Override
