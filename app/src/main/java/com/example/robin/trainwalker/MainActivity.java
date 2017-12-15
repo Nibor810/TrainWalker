@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.robin.trainwalker.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity implements TrainFragment.OnListFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity{
 
     private TextView mTextMessage;
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements TrainFragment.OnL
                     selectedFragment = MapFragment.newInstance();
                     break;
                 case R.id.navigation_trains:
-                    selectedFragment = TrainFragment.newInstance(20);
+                    selectedFragment = TrainFragment.newInstance();
                     break;
                 case R.id.navigation_settings:
                     selectedFragment = SettingsFragment.newInstance();
@@ -54,8 +54,4 @@ public class MainActivity extends AppCompatActivity implements TrainFragment.OnL
         transaction.commit();
     }
 
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
-    }
 }

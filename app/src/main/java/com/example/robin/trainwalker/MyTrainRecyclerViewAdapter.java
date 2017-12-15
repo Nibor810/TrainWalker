@@ -6,72 +6,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.robin.trainwalker.TrainFragment.OnListFragmentInteractionListener;
-import com.example.robin.trainwalker.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
-public class MyTrainRecyclerViewAdapter extends RecyclerView.Adapter<MyTrainRecyclerViewAdapter.ViewHolder> {
+public class MyTrainRecyclerViewAdapter extends RecyclerView.Adapter<MyTrainRecyclerViewAdapter.TrainViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<Train> trains;
 
-    public MyTrainRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    public MyTrainRecyclerViewAdapter(List<Train> items) {
+        trains = items;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_train, parent, false);
-        return new ViewHolder(view);
+    public TrainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new TrainViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_train,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+    public void onBindViewHolder(TrainViewHolder holder, int position) {
+        Train train = trains.get(position);
+        holder.trainName.setText(trains.get(position).getName());
+        holder.departTimeText.setText(trains.get(position).getDepartureTime());
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return trains.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class TrainViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView trainName;
+        public final TextView departTimeText;
 
-        public ViewHolder(View view) {
+        public TrainViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            trainName = view.findViewById(R.id.row_train_nameText);
+            departTimeText = view.findViewById(R.id.row_train_timeText);
         }
     }
 }

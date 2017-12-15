@@ -10,4 +10,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.example.robin.trainwalker.TrainFragment"
-    tools:listitem="@layout/fragment_train" />
+    tools:listitem="@layout/row_train" />
