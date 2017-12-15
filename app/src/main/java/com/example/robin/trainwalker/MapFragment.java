@@ -12,6 +12,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback{
 
+    GoogleMap map;
+
     public MapFragment() {
         // Required empty public constructor
     }
@@ -34,13 +36,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
-
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_fragment_google_map);
+        mapFragment.getMapAsync(this);
     }
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
+        map = googleMap;
     }
 }

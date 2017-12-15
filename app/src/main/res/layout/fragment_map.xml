@@ -1,14 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.robin.trainwalker.MapFragment">
-
-    <!-- TODO: Update blank fragment layout -->
 
     <fragment
-        android:id="@+id/fragment"
-        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map_fragment_google_map"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        tools:context="com.example.robin.trainwalker.MapFragment"/>
+
