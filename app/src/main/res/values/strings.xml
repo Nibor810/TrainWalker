@@ -7,4 +7,8 @@
     <string name="settings_speedHintValue">5</string>
     <string name="settings_title">Instellingen</string>
     <string name="settings_walkspeedtext">Gemiddelde Loopsnelheid</string>
+    <string name="settings_favorite_train">Favoriete Trein Instellen</string>
+    <string name="settings_current_favorite_train_text">Huidige Favorite Trein</string>
+    <string name="favorite_train_popup_start_station">Beginstation</string>
+    <string name="favorite_train_popup_end_station">Eindstation</string>
 </resources>
