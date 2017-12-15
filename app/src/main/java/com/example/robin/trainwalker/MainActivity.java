@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     selectedFragment = HomeFragment.newInstance();
                     break;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_map:
                     selectedFragment = HomeFragment.newInstance();
                     break;
-                case R.id.navigation_notifications:
+                case R.id.navigation_trains:
                     selectedFragment = HomeFragment.newInstance();
                     break;
                 case R.id.navigation_settings:
