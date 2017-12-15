@@ -24,7 +24,9 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         openPopupButton = getActivity().findViewById(R.id.settings_selectFavoriteTrainButton);
-        
+        openPopupButton.setOnClickListener(v->{
+            showPopup();
+        });
 
 
     }
@@ -35,7 +37,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void showPopup(){
-
+        //TODO: Open Popup
     }
 
 
