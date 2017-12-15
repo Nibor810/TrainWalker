@@ -14,4 +14,5 @@
     <string name="favorite_train_popup_end_station">Eindstation</string>
     <string name="favorite_train_popup_save">Opslaan</string>
     <string name="row_train_depart_time_text">Vertrektijd</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
