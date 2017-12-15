@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements TrainFragment.OnL
                     selectedFragment = HomeFragment.newInstance();
                     break;
                 case R.id.navigation_map:
-                    selectedFragment = HomeFragment.newInstance();
+                    selectedFragment = MapFragment.newInstance();
                     break;
                 case R.id.navigation_trains:
                     selectedFragment = TrainFragment.newInstance(20);
