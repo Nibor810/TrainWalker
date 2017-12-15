@@ -15,4 +15,8 @@
     <string name="favorite_train_popup_save">Opslaan</string>
     <string name="row_train_depart_time_text">Vertrektijd</string>
     <string name="title_activity_maps">Map</string>
+    <string name="home_title">Welkom</string>
+    <string name="home_text">Welkom bij de TrainWalker App! Maak uw keuze!</string>
+    <string name="home_button_favorite_train">Favorite trein</string>
+    <string name="home_button_different_train">Andere trein</string>
 </resources>
