@@ -6,5 +6,12 @@ package com.example.robin.trainwalker;
 
 public class ApiController
 {
-    
+    String username;
+    String password;
+
+    public ApiController(String username, String password)
+    {
+        this.username = username;
+        this.password = password;
+    }
 }
