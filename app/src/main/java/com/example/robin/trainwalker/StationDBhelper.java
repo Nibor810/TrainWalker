@@ -44,6 +44,8 @@ public class StationDBhelper extends SQLiteOpenHelper {
         insertStation(new Station("Berlijn5",coord));
         insertStation(new Station("Berlijn6",coord));
 
+        Log.i("DATABASE",getStation("Berlijn").getName());
+
     }
 
     public ArrayList<Station> getAllStations() {
@@ -74,7 +76,7 @@ public class StationDBhelper extends SQLiteOpenHelper {
 
     public Station getStation(String stationName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+ STATIONS_DATABASE_NAME +" WHERE "+KEY_STATIONS_NAME+" = "+stationName, null );
+        Cursor res =  db.rawQuery( "select * from "+ STATIONS_DATABASE_NAME +" WHERE "+KEY_STATIONS_NAME+" = '"+stationName+"'", null );
         if(res.getCount()>0) {
             res.moveToFirst();
             return new Station(
