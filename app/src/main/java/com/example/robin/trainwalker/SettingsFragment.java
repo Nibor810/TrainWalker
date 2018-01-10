@@ -36,5 +36,6 @@ public class SettingsFragment extends Fragment {
 
     private void showPopup(){
         //TODO: Open Popup
+
     }
 }
