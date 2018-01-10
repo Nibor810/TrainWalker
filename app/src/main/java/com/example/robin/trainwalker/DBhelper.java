@@ -39,9 +39,6 @@ public class DBhelper extends SQLiteOpenHelper {
     }
 
     public void dataBaseTest(){
-        for (Train train: getAllTrains()) {
-            Log.i("DATABASE TEST",train.toString());
-        }
         insertTrain(new Train("Berlijn", "Stalingrad","19:43"));
         insertTrain(new Train("Berlijn1", "Stalingrad1","19:44"));
         insertTrain(new Train("Berlijn2", "Stalingrad2","19:45"));
@@ -51,6 +48,10 @@ public class DBhelper extends SQLiteOpenHelper {
         for (Train train: getAllTrains()) {
             Log.i("DATABASE TEST",train.toString());
         }
+
+        Log.i("DATABASE TEST",getFavoriteTrain().toString());
+
+
     }
 
 
@@ -66,6 +67,16 @@ public class DBhelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    public Train getFavoriteTrain(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+DATABASE_NAME+" WHERE "+KEY_TRAIN_ISFAVORITE+" = 1", null );
+        if(res.getCount()>0) {
+            res.moveToFirst();
+            return new Train(res.getString(res.getColumnIndex(KEY_TRAIN_ORIGIN)), res.getString(res.getColumnIndex(KEY_TRAIN_DESTINATION)), res.getString(res.getColumnIndex(KEY_TRAIN_DEPARTURE_TIME)));
+        }
+        return new Train("DefaultStart", "DefaultEnd", "N.V.T.");
+    }
+
     public ArrayList<Train> getAllTrains() {
         ArrayList<Train> array_list = new ArrayList<Train>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -78,7 +89,6 @@ public class DBhelper extends SQLiteOpenHelper {
         }
         return array_list;
     }
-
 
     public boolean insertTrain(Train train){
         SQLiteDatabase db = this.getWritableDatabase();
