@@ -31,12 +31,12 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
+                android:text="@string/settings_kmpu"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="KM/PU" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/settings_walkingSpeedText"
@@ -99,15 +99,16 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
             <Button
                 android:id="@+id/settings_selectFavoriteTrainButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="49dp"
                 android:text="@string/settings_favorite_train"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -149,6 +150,27 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Dordrecht-Breda" />
 
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <Button
+                android:id="@+id/settings_saveWalkingSpeedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/favorite_train_popup_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
