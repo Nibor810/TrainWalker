@@ -60,7 +60,7 @@ public class SettingsFragment extends Fragment {
         return sharedPref.getString("WalkingSpeed","5");
     }
 
-    
+
 
     private void showPopup(){
         FavoriteTrainPopupFragment customDialog =new FavoriteTrainPopupFragment(this.getContext());
