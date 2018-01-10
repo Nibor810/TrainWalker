@@ -101,7 +101,9 @@ public class StationDBhelper extends SQLiteOpenHelper {
 
     public ArrayList<String> getAllStationNames() {
         ArrayList<String> list = new ArrayList<String>();
-
+        for (Station station:getAllStations()) {
+            list.add(station.getName());
+        }
         return list;
     }
 

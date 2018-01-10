@@ -20,4 +20,5 @@
     <string name="home_button_favorite_train">Favorite trein</string>
     <string name="home_button_different_train">Andere trein</string>
     <string name="settings_kmpu">KM/PU</string>
+    <string name="settings_cancel">Annuleren</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.robin.trainwalker;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class SettingsFragment extends Fragment {
     Button openPopupButton;
     EditText walkspeedTextBox;
     Button saveWalkingSpeedButton;
+    TextView favoriteStations;
 
     public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
@@ -41,7 +44,19 @@ public class SettingsFragment extends Fragment {
             saveWalkingSpeed();
         });
         walkspeedTextBox.setText(getWalkingSpeed());
+        favoriteStations = view.findViewById(R.id.settings_favoriteTrain);
+        favoriteStations.setText(getFavoriteStations());
         return view;
+    }
+
+    private String getFavoriteStations() {
+        SharedPreferences sharedPref = getContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
+        String startStation = sharedPref.getString("originStation"," ");
+        String endStation = sharedPref.getString("destinationStation"," ");
+
+        return startStation + " - " + endStation;
+
+
     }
 
     private void saveWalkingSpeed() {
@@ -63,6 +78,9 @@ public class SettingsFragment extends Fragment {
 
     private void showPopup(){
         FavoriteTrainPopupFragment customDialog =new FavoriteTrainPopupFragment(this.getContext());
-        customDialog .show();
+        customDialog.setOnDismissListener(dialogInterface -> {
+            favoriteStations.setText(getFavoriteStations());
+        });
+        customDialog.show();
     }
 }
