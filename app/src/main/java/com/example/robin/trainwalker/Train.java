@@ -30,4 +30,9 @@ class Train {
     public String getName() {
         return startStation+" - "+endStation;
     }
+
+    @Override
+    public String toString() {
+        return "From: "+startStation+" To: "+endStation+" At: "+departureTime;
+    }
 }

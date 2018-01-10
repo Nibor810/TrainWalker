@@ -53,6 +53,9 @@ public class SettingsFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("WalkingSpeed", walkspeedTextBox.getText().toString());
         editor.commit();
+
+        DBhelper db = new DBhelper(getContext());
+        db.dataBaseTest();
     }
 
     private String getWalkingSpeed(){
