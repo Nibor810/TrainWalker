@@ -15,6 +15,12 @@ class Train {
         this.departureTime = departureTime;
     }
 
+    Train(String startStation, String endStation){
+        this.startStation = startStation;
+        this.endStation = endStation;
+        this.departureTime = "-";
+    }
+
     public String getStartStation() {
         return startStation;
     }
@@ -33,6 +39,6 @@ class Train {
 
     @Override
     public String toString() {
-        return "From: "+startStation+" To: "+endStation+" At: "+departureTime;
+        return "From: "+startStation+" To: "+endStation;
     }
 }

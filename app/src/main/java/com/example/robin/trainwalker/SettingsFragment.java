@@ -1,14 +1,10 @@
 package com.example.robin.trainwalker;
 
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +50,8 @@ public class SettingsFragment extends Fragment {
         editor.putString("WalkingSpeed", walkspeedTextBox.getText().toString());
         editor.commit();
 
-        DBhelper db = new DBhelper(getContext());
-        db.dataBaseTest();
+        StationDBhelper db = new StationDBhelper(getContext());
+        db.testDatabase();
     }
 
     private String getWalkingSpeed(){
