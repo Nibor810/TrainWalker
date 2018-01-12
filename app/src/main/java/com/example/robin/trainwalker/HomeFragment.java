@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
         favoriteTrainButton = view.findViewById(R.id.home_FavoriteTrainButton);
         favoriteTrainButton.setOnClickListener(v-> {
 
-            //apiController.requestStations();
+            apiController.requestStations();
         });
 
         otherTrainButton = view.findViewById(R.id.home_OtherTrainButton);
