@@ -56,4 +56,16 @@
         android:text="@string/popup_can_u_make_it_continue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popup_makeit_textViewTime" />
+
+    <ProgressBar
+        android:id="@+id/popup_makeit_progressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/popup_makeit_continueButton"
+        app:layout_constraintStart_toEndOf="@+id/popup_makeit_cancelButton"
+        app:layout_constraintTop_toBottomOf="@+id/popup_makeit_textViewTime" />
 </android.support.constraint.ConstraintLayout>

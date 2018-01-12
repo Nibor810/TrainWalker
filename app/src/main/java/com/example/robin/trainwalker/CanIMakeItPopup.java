@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -20,6 +21,7 @@ public class CanIMakeItPopup extends Dialog {
     Button accept;
     TextView textViewTime;
     PopUpCallBack callBack;
+    ProgressBar progressBar;
 
     public CanIMakeItPopup(@NonNull Context context, PopUpCallBack callBack) {
         super(context);
@@ -33,6 +35,7 @@ public class CanIMakeItPopup extends Dialog {
         setContentView(R.layout.fragment_popup_can_i_make_it);
         cancel = findViewById(R.id.popup_makeit_cancelButton);
         accept = findViewById(R.id.popup_makeit_continueButton);
+        progressBar = findViewById(R.id.popup_makeit_progressBar);
         textViewTime = findViewById(R.id.popup_makeit_textViewTime);
         cancel.setOnClickListener(view -> {
             dismiss();
@@ -40,6 +43,7 @@ public class CanIMakeItPopup extends Dialog {
         accept.setOnClickListener(view -> {
             goToMapFragment();
         });
+        progressBar.setIndeterminate(true);
         //TODO: send a request to NS API and google maps api to see what train can be taken while walking.
     }
 
