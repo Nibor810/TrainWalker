@@ -69,7 +69,7 @@ public class RequestController extends AsyncTask<String, Void, String> {
                 connection.setUseCaches(false);
                 connection.connect();
             }
-            
+
             Log.d("RESPONSE", "Response code: " + connection.getResponseCode());
             Log.d("RESPONSE", "Response message: " + connection.getResponseMessage());
             Log.d("RESPONSE", "Request method: " + connection.getRequestMethod());
