@@ -20,4 +20,10 @@
     <string name="home_button_favorite_train">Favorite trein</string>
     <string name="home_button_different_train">Andere trein</string>
     <string name="settings_kmpu">KM/PU</string>
+    <string name="settings_cancel">Annuleren</string>
+    <string name="train_select_origin_station">Selecteer begin Station</string>
+    <string name="train_select_destination_station">Selecteer bestemmings Station</string>
+    <string name="train_button_accept">Bevestigen</string>
+    <string name="popup_can_u_make_it_title">Is de eerstvolgende trein die haalbaar is vertrekt om: </string>
+    <string name="popup_can_u_make_it_continue">Doorgaan</string>
 </resources>

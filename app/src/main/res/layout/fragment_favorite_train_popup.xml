@@ -15,29 +15,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <MultiAutoCompleteTextView
-            android:id="@+id/multiAutoCompleteTextView"
-            android:layout_width="wrap_content"
+        <AutoCompleteTextView
+            android:id="@+id/ftPopup_textBoxBeginStation"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:text="MultiAutoCompleteTextView"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ftPopup_startStationText"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/ftPopup_startStationText"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
             android:gravity="center"
             android:text="@string/favorite_train_popup_start_station"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/multiAutoCompleteTextView"
+            app:layout_constraintEnd_toStartOf="@+id/ftPopup_textBoxBeginStation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
@@ -53,24 +55,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
-        <MultiAutoCompleteTextView
-            android:id="@+id/multiAutoCompleteTextView2"
-            android:layout_width="wrap_content"
+        <AutoCompleteTextView
+            android:id="@+id/ftPopup_textBoxEndStation"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="MultiAutoCompleteTextView"
+            android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ftPopup_textBoxEndStation"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/ftPopup_endStationText"
-            android:layout_width="0dp"
+            android:id="@+id/ftPopup_textBoxEndStation"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginStart="8dp"
             android:gravity="center"
             android:text="@string/favorite_train_popup_end_station"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/multiAutoCompleteTextView2"
+            app:layout_constraintEnd_toStartOf="@+id/ftPopup_textBoxEndStation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
@@ -80,10 +84,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:text="@string/favorite_train_popup_save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/settings_cancel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
 
