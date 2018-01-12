@@ -21,23 +21,24 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-
-        apiController = new ApiController();
-
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        apiController = new ApiController();
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         favoriteTrainButton = view.findViewById(R.id.home_FavoriteTrainButton);
 
         favoriteTrainButton.setOnClickListener(v->
         {
-            apiController.requestStations();
+            //apiController.requestStations();
         });
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
     }
 }
