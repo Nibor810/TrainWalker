@@ -47,6 +47,11 @@ public class ApiController {
         new RequestStationInterruption(stationName, planned, unplanned);
     }
 
+    public void requestTravelAdvice(String fromStation, String toStation) {
+
+        new RequestTravelAdvice(fromStation, toStation);
+    }
+
     private class RequestStations implements AsyncResponse {
 
         public RequestStations() {
@@ -90,6 +95,22 @@ public class ApiController {
         @Override
         public void processFinished(String result) {
 
+            //TODO PARSE RESULT.
+            System.out.println(result);
+        }
+    }
+
+    private class RequestTravelAdvice implements AsyncResponse {
+
+        public RequestTravelAdvice(String fromStation, String toStation) {
+
+            String urlString = "https://webservices.ns.nl/ns-api-treinplanner?fromStation=" + fromStation + "&toStation=" + toStation;
+            new RequestController(username, password, urlString, this).execute();
+        }
+
+        @Override
+        public void processFinished(String result)
+        {
             //TODO PARSE RESULT.
             System.out.println(result);
         }
