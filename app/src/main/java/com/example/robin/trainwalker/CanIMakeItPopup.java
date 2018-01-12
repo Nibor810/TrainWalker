@@ -40,6 +40,7 @@ public class CanIMakeItPopup extends Dialog {
         accept.setOnClickListener(view -> {
             goToMapFragment();
         });
+        //TODO: send a request to NS API and google maps api to see what train can be taken while walking.
     }
 
     private void goToMapFragment() {

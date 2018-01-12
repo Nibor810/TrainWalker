@@ -39,7 +39,8 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
         originStation = view.findViewById(R.id.train_autoCompleteBeginStation);
         destinationStation = view.findViewById(R.id.train_autoCompleteEndStation);
         chooseStationsButton.setOnClickListener(view1 -> {
-            showPopup();
+            //TODO: Validate if input is legal
+                showPopup();
         });
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_dropdown_item_1line, new StationDBhelper(this.getContext()).getAllStationNames());
@@ -50,6 +51,7 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
 
         return view;
     }
+
 
     private void showPopup(){
         CanIMakeItPopup customDialog =new CanIMakeItPopup(this.getContext(),this);
