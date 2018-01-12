@@ -2,6 +2,9 @@ package com.example.robin.trainwalker;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.internal.NavigationMenu;
+import android.support.design.internal.NavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +19,7 @@ import java.util.List;
 
 public class TrainFragment extends Fragment implements PopUpCallBack {
     Button chooseStationsButton;
+    BottomNavigationView navigation;
 
     public TrainFragment() {
     }
@@ -35,6 +39,7 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_train, container, false);
         chooseStationsButton = view.findViewById(R.id.train_chooseStationsButton);
+        navigation = getActivity().findViewById(R.id.navigation);
         chooseStationsButton.setOnClickListener(view1 -> {
             showPopup();
         });
@@ -50,6 +55,7 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame,MapFragment.newInstance());
         transaction.commit();
+        navigation.setSelectedItemId(R.id.navigation_map);
     }
 
     @Override
