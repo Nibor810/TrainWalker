@@ -24,8 +24,8 @@ public class ApiController
     {
         public RequestStations()
         {
-            String url = "http://webservices.ns.nl/ns-api-stations-v2";
-            new RequestController(username, password, url, this).execute();
+            String urlString = "http://webservices.ns.nl/ns-api-stations-v2";
+            new RequestController(username, password, urlString, this).execute();
         }
 
         @Override
