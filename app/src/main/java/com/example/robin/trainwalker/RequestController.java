@@ -15,15 +15,15 @@ import java.net.URL;
  * Created by Arthur on 10-1-2018.
  */
 
-public class RequestController extends AsyncTask<String, Void, String>
-{
+public class RequestController extends AsyncTask<String, Void, String> {
+
     private AsyncResponse delegate = null;
     private String username;
     private String password;
     private String urlString;
 
-    public RequestController(String username, String password, String urlString, AsyncResponse delegate)
-    {
+    public RequestController(String username, String password, String urlString, AsyncResponse delegate) {
+
         this.username = username;
         this.password = password;
         this.urlString = urlString;
@@ -31,15 +31,15 @@ public class RequestController extends AsyncTask<String, Void, String>
     }
 
     @Override
-    protected String doInBackground(String... params)
-    {
+    protected String doInBackground(String... params) {
+
         HttpURLConnection connection = null;
         BufferedReader reader = null;
 
         String result;
 
-        try
-        {
+        try {
+
             final String userPassString = username + ":" + password;
             final String basicAuth = "Basic " + Base64.encodeToString(userPassString.getBytes(), Base64.NO_WRAP);
 
@@ -56,47 +56,48 @@ public class RequestController extends AsyncTask<String, Void, String>
 
             InputStream inputStream = connection.getInputStream();
             StringBuffer buffer = new StringBuffer();
-            if (inputStream == null)
-            {
+            if (inputStream == null) {
+
                 return null;
             }
 
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
-            while ((line = reader.readLine()) != null)
-            {
+            while ((line = reader.readLine()) != null) {
+
                 buffer.append(line + "\n");
             }
 
-            if (buffer.length() == 0)
-            {
+            if (buffer.length() == 0) {
+
                 // Stream was empty.  No point in parsing.
                 return null;
             }
 
             return buffer.toString();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
+
             Log.e("PlaceholderFragment", "Error ", e);
             // If the code didn't successfully get the API data, there's no point in attemping to parse it.
             return null;
         }
-        finally
-        {
+        finally {
+
             //Reset
-            if (connection != null)
-            {
+            if (connection != null) {
+
                 connection.disconnect();
             }
-            if (reader != null)
-            {
-                try
-                {
+            if (reader != null) {
+
+                try {
+
                     reader.close();
-                } catch (final IOException e)
-                {
+                }
+                catch (final IOException e) {
+
                     Log.e("PlaceholderFragment", "Error closing stream", e);
                 }
             }
@@ -104,8 +105,8 @@ public class RequestController extends AsyncTask<String, Void, String>
     }
 
     @Override
-    protected void onPostExecute(String resultString)
-    {
+    protected void onPostExecute(String resultString) {
+        
         delegate.processFinished(resultString);
     }
 }
