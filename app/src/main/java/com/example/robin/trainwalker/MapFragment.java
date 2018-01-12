@@ -1,5 +1,6 @@
 package com.example.robin.trainwalker;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -33,13 +34,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback{
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     public final static String KEY_ROUTE = "ROUTE";
     private final static int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     private final static float DEFAULT_ZOOM = 18f;
     private final static String KEY_LOCATION = "LOCATION";
     private final static String KEY_CAMERA_POSITION = "CAMERA_POSITION";
     private final static int ZOOM_THRESHOLD = 10;
+    private boolean fresh = true;
     private Location lastKnownLocation = null;
     private CameraPosition cameraPosition = null;
     private GoogleMap map;
@@ -50,36 +52,63 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     public MapFragment() {
         // Required empty public constructor
     }
+
     public static MapFragment newInstance() {
         MapFragment fragment = new MapFragment();
         return fragment;
+    }
+
+    private void createGoogleApi() {
+        if (googleApiClient == null) {
+            googleApiClient = new GoogleApiClient.Builder(this.getActivity())
+                    .addApi(LocationServices.API)
+                    .build();
+        }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
+        createGoogleApi();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_map, container, false);
 
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        super.onViewCreated(view,savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_fragment_google_map);
         mapFragment.getMapAsync(this);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        googleApiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        googleApiClient.disconnect();
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        if (fresh) {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
+            getLocationPermission();
+        }
+        updateLocationUI();
         getDeviceLocation();
-        routeRequest(createRouteURL(new LatLng(51.82328574,4.77466464),new LatLng(51.82926685,4.77835536)));
+        routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()),new LatLng(51.82926685,4.77835536)));
+        //routeRequest(createRouteURL(new LatLng(51.82328574,4.77466464),new LatLng(51.82926685,4.77835536)));
     }
 
     private void getDeviceLocation() {
