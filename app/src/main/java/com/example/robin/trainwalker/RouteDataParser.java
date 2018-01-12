@@ -1,5 +1,7 @@
 package com.example.robin.trainwalker;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -17,6 +19,8 @@ class RouteDataParser {
     public List<List<LatLng>> parseRoutesInfo(JSONObject jObject) {
 
         List<List<LatLng>> routes = new ArrayList<>();
+        int distanceInMeters = 0;
+        int durationInSeconds = 0;
         JSONArray jRoutes;
         JSONArray jLegs;
         JSONArray jSteps;
@@ -24,7 +28,7 @@ class RouteDataParser {
         try {
 
             jRoutes = jObject.getJSONArray("routes");
-
+            /**
             if (jRoutes.length() > 0) {
                 JSONObject nortEastJson = ((JSONObject) jRoutes.get(0)).getJSONObject("bounds").getJSONObject("northeast");
                 LatLng northEast = new LatLng(nortEastJson.getDouble("lat"), nortEastJson.getDouble("lng"));
@@ -37,16 +41,34 @@ class RouteDataParser {
                 bounds.add(southWest);
                 routes.add(bounds);
             }
+             */
 
-            /** Traversing all routes */
+
+            JSONArray legs = jRoutes.getJSONObject(0).getJSONArray("legs");
+            JSONObject leg = legs.getJSONObject(0);
+            distanceInMeters = leg.getJSONObject("distance").getInt("value");
+            durationInSeconds = leg.getJSONObject("duration").getInt("value");
+
+            JSONArray steps = leg.getJSONArray("steps");
+            for (int i = 0; i < steps.length(); i++) {
+                String polyline;
+                polyline = (String) ((JSONObject) ((JSONObject) steps.get(i)).get("polyline")).get("points");
+                List<LatLng> list = decodePoly(polyline);
+
+                routes.add(list);
+            }
+
+
+            /** Traversing all routes
             for (int i = 0; i < jRoutes.length(); i++) {
                 jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
-
-                /** Traversing all legs */
+                distanceInMeters = jLegs.getJSONObject(0).getInt("distance");
+                durationInSeconds = jLegs.getJSONObject(0).getInt("duration");
+                /** Traversing all legs
                 for (int j = 0; j < jLegs.length(); j++) {
                     jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
 
-                    /** Traversing all steps */
+                    /** Traversing all steps
                     for (int k = 0; k < jSteps.length(); k++) {
                         String polyline;
                         polyline = (String) ((JSONObject) ((JSONObject) jSteps.get(k)).get("polyline")).get("points");
@@ -54,16 +76,13 @@ class RouteDataParser {
 
                         routes.add(list);
                     }
-                }
-            }
-
-        } catch (JSONException e) {
+             */
+    } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
+        Log.i("PARSE",distanceInMeters + " &"+durationInSeconds);
         return routes;
     }
 

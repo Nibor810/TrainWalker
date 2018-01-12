@@ -2,6 +2,7 @@ package com.example.robin.trainwalker;
 
 import android.app.DownloadManager;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -15,17 +16,21 @@ import android.view.ViewGroup;
 import com.android.volley.Request;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.Task;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback{
@@ -53,6 +58,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
     }
 
     @Override
@@ -72,6 +78,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        getDeviceLocation();
+        routeRequest(createRouteURL(new LatLng(51.82328574,4.77466464),new LatLng(51.82926685,4.77835536)));
     }
 
     private void getDeviceLocation() {
@@ -148,17 +156,42 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         String parameters = str_origin + "&" + str_dest + "&" + trafficMode;
 
         String output = "json";
-
-        return "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_key);
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_key);
+        Log.i("URL",url);
+        return url;
     }
 
     private void routeRequest(String url){
         VolleyManager.getInstance(this.getActivity()).JsonObjectRequest(Request.Method.GET, url, null, object -> {
             JSONObject response = (JSONObject) object;
+            Log.i("Route",response.toString());
             RouteDataParser dataParser = new RouteDataParser();
-            List<List<LatLng>> routeData;
-            routeData = dataParser.parseRoutesInfo(response);
+            //List<List<LatLng>> routeData = dataParser.parseRoutesInfo(response);
+            //routeData = dataParser.parseRoutesInfo(response);
+            drawRoute(dataParser.parseRoutesInfo(response));
         });
     }
+
+    private void drawRoute(List<List<LatLng>> route) {
+
+        PolylineOptions lineOptions = new PolylineOptions();
+        for (int i = 0; i < route.size(); i++) {
+            List<LatLng> leg = route.get(i);
+            Log.i("DRAW","Leg: "+i);
+            lineOptions.addAll(leg);
+        }
+        lineOptions.width(10);
+        lineOptions.color(Color.RED);
+        Log.d("onPostExecute","onPostExecute lineoptions decoded");
+
+        // Drawing polyline in the Google Map for the i-th route
+        if(lineOptions != null) {
+            map.addPolyline(lineOptions);
+        }
+        else {
+            Log.d("onPostExecute","without Polylines drawn");
+        }
+    }
+
 
 }
