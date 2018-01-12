@@ -21,6 +21,7 @@ public class RequestController extends AsyncTask<String, Void, String> {
     private String username;
     private String password;
     private String urlString;
+    private boolean authentication;
 
     public RequestController(String username, String password, String urlString, AsyncResponse delegate) {
 
@@ -28,6 +29,14 @@ public class RequestController extends AsyncTask<String, Void, String> {
         this.password = password;
         this.urlString = urlString;
         this.delegate = delegate;
+        authentication = true;
+    }
+
+    public RequestController(String urlString, AsyncResponse delegate) {
+
+        this.urlString = urlString;
+        this.delegate = delegate;
+        authentication = false;
     }
 
     @Override
@@ -40,16 +49,27 @@ public class RequestController extends AsyncTask<String, Void, String> {
 
         try {
 
-            final String userPassString = username + ":" + password;
-            final String basicAuth = "Basic " + Base64.encodeToString(userPassString.getBytes(), Base64.NO_WRAP);
+            if(authentication == true) {
 
-            URL url = new URL(urlString);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Authorization", basicAuth);
-            connection.setUseCaches(false);
-            connection.connect();
+                final String userPassString = username + ":" + password;
+                final String basicAuth = "Basic " + Base64.encodeToString(userPassString.getBytes(), Base64.NO_WRAP);
 
+                URL url = new URL(urlString);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", basicAuth);
+                connection.setUseCaches(false);
+                connection.connect();
+            }
+            else {
+
+                URL url = new URL(urlString);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setUseCaches(false);
+                connection.connect();
+            }
+            
             Log.d("RESPONSE", "Response code: " + connection.getResponseCode());
             Log.d("RESPONSE", "Response message: " + connection.getResponseMessage());
             Log.d("RESPONSE", "Request method: " + connection.getRequestMethod());
