@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.android.volley.Request;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -148,6 +150,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         String output = "json";
 
         return "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_key);
+    }
+
+    private void routeRequest(String url){
+        VolleyManager.getInstance(this.getActivity()).JsonObjectRequest(Request.Method.GET, url, null, object -> {
+            JSONObject response = (JSONObject) object;
+            RouteDataParser dataParser = new RouteDataParser();
+            List<List<LatLng>> routeData;
+            routeData = dataParser.parseRoutesInfo(response);
+        });
     }
 
 }
