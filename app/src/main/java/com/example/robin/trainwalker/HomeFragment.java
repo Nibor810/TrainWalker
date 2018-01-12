@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class HomeFragment extends Fragment {
 
-    private ApiController apiController;
+    private DRApiController drapicontroller;
     private Button favoriteTrainButton;
     private Button otherTrainButton;
 
@@ -28,14 +28,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        apiController = new ApiController();
+        drapicontroller = new DRApiController();
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         favoriteTrainButton = view.findViewById(R.id.home_FavoriteTrainButton);
         favoriteTrainButton.setOnClickListener(v-> {
 
-            apiController.requestStations();
+            drapicontroller.requestTravelAdvice("Breda", "Dordrecht");
         });
 
         otherTrainButton = view.findViewById(R.id.home_OtherTrainButton);
