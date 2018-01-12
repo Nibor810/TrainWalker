@@ -40,6 +40,8 @@ public class FavoriteTrainPopupFragment extends Dialog {
         });
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_dropdown_item_1line, new StationDBhelper(context).getAllStationNames());
+        originStation.setThreshold(1);
+        destinationStation.setThreshold(1);
         originStation.setAdapter(adapter);
         destinationStation.setAdapter(adapter);
 
