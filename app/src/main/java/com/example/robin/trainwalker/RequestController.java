@@ -17,8 +17,7 @@ import java.net.URL;
 
 public class RequestController extends AsyncTask<String, Void, String>
 {
-    public AsyncResponse delegate = null;
-
+    private AsyncResponse delegate = null;
     private String username;
     private String password;
     private String urlString;
