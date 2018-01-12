@@ -106,7 +106,6 @@ public class RequestController extends AsyncTask<String, Void, String>
     @Override
     protected void onPostExecute(String resultString)
     {
-        //super.onPostExecute(resultString);
         delegate.processFinished(resultString);
     }
 }
