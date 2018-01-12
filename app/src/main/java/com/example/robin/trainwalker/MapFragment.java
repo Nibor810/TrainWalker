@@ -166,8 +166,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
             JSONObject response = (JSONObject) object;
             Log.i("Route",response.toString());
             RouteDataParser dataParser = new RouteDataParser();
-            //List<List<LatLng>> routeData = dataParser.parseRoutesInfo(response);
-            //routeData = dataParser.parseRoutesInfo(response);
             drawRoute(dataParser.parseRoutesInfo(response));
         });
     }
