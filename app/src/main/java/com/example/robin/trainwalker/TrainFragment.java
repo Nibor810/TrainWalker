@@ -26,27 +26,11 @@ public class TrainFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    private List<Train> getTempTrains() {
-        ArrayList<Train> list = new ArrayList<>();
-        list.add(new Train("Dordrecht","Breda","12:30"));
-        list.add(new Train("Dordrecht","Breda","13:30"));
-        list.add(new Train("Dordrecht","Breda","14:30"));
-        list.add(new Train("Dordrecht","Breda","15:30"));
-        list.add(new Train("Dordrecht","Breda","16:30"));
-        list.add(new Train("Dordrecht","Breda","17:30"));
-        return list;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_train_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_train, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setAdapter(new MyTrainRecyclerViewAdapter(getTempTrains()));
-        }
         return view;
     }
 }
