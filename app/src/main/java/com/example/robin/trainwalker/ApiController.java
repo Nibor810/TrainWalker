@@ -34,6 +34,19 @@ public class ApiController {
         new RequestStationDepartureTimes(stationName);
     }
 
+    /**
+     *
+     * @param stationName
+     * @param planned
+     * If you want to recieve the planned interruptions or not.
+     * @param unplanned
+     * If you want to recieve the unplanned interruptions or not.
+     */
+    public void requestStationInterruption(String stationName, boolean planned, boolean unplanned) {
+
+        new RequestStationInterruption(stationName, planned, unplanned);
+    }
+
     private class RequestStations implements AsyncResponse {
 
         public RequestStations() {
@@ -55,6 +68,22 @@ public class ApiController {
         public RequestStationDepartureTimes(String stationName) {
 
             String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
+            new RequestController(username, password, urlString, this).execute();
+        }
+
+        @Override
+        public void processFinished(String result) {
+
+            //TODO PARSE RESULT.
+            System.out.println(result);
+        }
+    }
+
+    private class RequestStationInterruption implements AsyncResponse {
+
+        public RequestStationInterruption(String stationName, boolean planned, boolean unplanned) {
+
+            String urlString = "http://webservices.ns.nl/ns-api-storingen?station=" + stationName + "&actual=" + unplanned + "&unplanned=" + unplanned;
             new RequestController(username, password, urlString, this).execute();
         }
 
