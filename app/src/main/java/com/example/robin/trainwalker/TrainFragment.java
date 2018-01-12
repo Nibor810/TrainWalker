@@ -1,25 +1,21 @@
 package com.example.robin.trainwalker;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.internal.NavigationMenu;
-import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TrainFragment extends Fragment implements PopUpCallBack {
     Button chooseStationsButton;
     BottomNavigationView navigation;
+    AutoCompleteTextView originStation;
+    AutoCompleteTextView destinationStation;
 
     public TrainFragment() {
     }
@@ -40,9 +36,18 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
         View view = inflater.inflate(R.layout.fragment_train, container, false);
         chooseStationsButton = view.findViewById(R.id.train_chooseStationsButton);
         navigation = getActivity().findViewById(R.id.navigation);
+        originStation = view.findViewById(R.id.train_autoCompleteBeginStation);
+        destinationStation = view.findViewById(R.id.train_autoCompleteEndStation);
         chooseStationsButton.setOnClickListener(view1 -> {
             showPopup();
         });
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
+                android.R.layout.simple_dropdown_item_1line, new StationDBhelper(this.getContext()).getAllStationNames());
+        originStation.setThreshold(1);
+        destinationStation.setThreshold(1);
+        originStation.setAdapter(adapter);
+        destinationStation.setAdapter(adapter);
+
         return view;
     }
 
@@ -60,6 +65,12 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
 
     @Override
     public void doAfterPopup() {
+        saveChosenTrain();
         goToMapFragment();
+    }
+
+    private void saveChosenTrain() {
+        ChosenTrainSingleton.getInstance().setChosenDestinationStation(destinationStation.getText().toString());
+        ChosenTrainSingleton.getInstance().setChosenOriginStation(originStation.getText().toString());
     }
 }
