@@ -56,6 +56,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LatLng defaultLocation = new LatLng(0, 0);
     private LocationCallback locationCallback;
+    private LatLng destination = new LatLng(51.82926685,4.77835536);
 
 
     public MapFragment() {
@@ -139,9 +140,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         updateLocationUI();
         getDeviceLocation();
-        getCurrentLocation();
-        //routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()),new LatLng(51.82926685,4.77835536)));
-        //createRouteURL(new LatLng(51.82328574,4.77466464),new LatLng(51.82926685,4.77835536)));
     }
 
 
@@ -152,6 +150,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 locationResult.addOnCompleteListener(this.getActivity(), (task) -> {
                     if (task.isSuccessful()) {
                         lastKnownLocation = task.getResult();
+                        routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()),destination));
                         if (cameraPosition == null && lastKnownLocation != null)
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(lastKnownLocation.getLatitude(),
@@ -160,23 +159,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         if (cameraPosition == null)
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
                         map.getUiSettings().setMyLocationButtonEnabled(false);
-                    }
-                });
-            }
-        } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
-        }
-    }
-
-    private void getCurrentLocation(){
-        try {
-            if (hasLocationPermission()) {
-                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this.getActivity(), (task) -> {
-                    if (task.isSuccessful()) {
-                        lastKnownLocation = task.getResult();
-                        Log.i("LOC", "lat: " + lastKnownLocation.getLatitude() + "long: " + lastKnownLocation.getLongitude());
-                        routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()),new LatLng(51.82926685,4.77835536)));
+                        //TODO: popup dat de route vanaf huidige locatie niet kan worden berekent
                     }
                 });
             }
@@ -216,28 +199,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    private String createRouteURL(LatLng ownLocation,LatLng stationLocation) {
-        // Origin of route
-        LatLng originLatLng;
-        String str_origin;
-
-        // Detination of route
-        LatLng destLatLng;
-        String str_dest;
-
-        // Mode of transportation
+    private String createRouteURL(LatLng startLocation,LatLng destinationLocation) {
         String trafficMode = "mode=walking";
-
-        // Waypoints of route
-        originLatLng = ownLocation;
-        str_origin = "origin=" + originLatLng.latitude + "," + originLatLng.longitude;
-
-        destLatLng = stationLocation;
-        str_dest = "destination=" + destLatLng.latitude + "," + destLatLng.longitude;
-
-        // Url building
+        String str_origin = "origin=" + startLocation.latitude + "," + startLocation.longitude;
+        String str_dest = "destination=" + destinationLocation.latitude + "," + destinationLocation.longitude;
         String parameters = str_origin + "&" + str_dest + "&" + trafficMode;
-
         String output = "json";
         String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_key);
         Log.i("URL",url);
@@ -250,6 +216,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Log.i("Route",response.toString());
             RouteDataParser dataParser = new RouteDataParser();
             drawRoute(dataParser.parseRoutesInfo(response));
+            //TODO: Route opslaan zodat bij het verlaten van de fragment de route niet opnieuw opgehaalt hoeft te worden.
         });
     }
 
@@ -263,14 +230,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         lineOptions.width(10);
         lineOptions.color(Color.RED);
-        Log.d("onPostExecute","onPostExecute lineoptions decoded");
-
-        // Drawing polyline in the Google Map for the i-th route
         if(lineOptions != null) {
             map.addPolyline(lineOptions);
-        }
-        else {
-            Log.d("onPostExecute","without Polylines drawn");
         }
     }
 

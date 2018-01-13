@@ -72,7 +72,6 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
     }
 
     private void saveChosenTrain() {
-        ChosenTrainSingleton.getInstance().setChosenDestinationStation(destinationStation.getText().toString());
         ChosenTrainSingleton.getInstance().setChosenOriginStation(originStation.getText().toString());
     }
 }

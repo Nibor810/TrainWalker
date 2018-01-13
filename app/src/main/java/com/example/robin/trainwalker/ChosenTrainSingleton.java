@@ -7,7 +7,6 @@ package com.example.robin.trainwalker;
 public class ChosenTrainSingleton {
     public static ChosenTrainSingleton chosenTrainSingleton;
     private String chosenOriginStation;
-    private String chosenDestinationStation;
 
     private ChosenTrainSingleton(){
 
@@ -27,11 +26,4 @@ public class ChosenTrainSingleton {
         this.chosenOriginStation = chosenOriginStation;
     }
 
-    public String getChosenDestinationStation() {
-        return chosenDestinationStation;
-    }
-
-    public void setChosenDestinationStation(String chosenDestinationStation) {
-        this.chosenDestinationStation = chosenDestinationStation;
-    }
 }
