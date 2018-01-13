@@ -1,10 +1,14 @@
 package com.example.robin.trainwalker;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -17,6 +21,9 @@ import android.view.ViewGroup;
 import com.android.volley.Request;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,6 +55,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleApiClient googleApiClient;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LatLng defaultLocation = new LatLng(0, 0);
+    private LocationCallback locationCallback;
+
 
     public MapFragment() {
         // Required empty public constructor
@@ -66,10 +75,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                //onLocationChanged(locationResult.getLastLocation());
+                //TODO: wat als locatie verandert
+                Log.i("LOC","LOL");
+            }
+        };
         createGoogleApi();
     }
 
@@ -98,6 +116,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleApiClient.disconnect();
     }
 
+
+    @Override
+    public void onResume() {
+        registerLocationUpdates();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        deregisterLocationUpdates();
+        super.onPause();
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -107,9 +139,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         updateLocationUI();
         getDeviceLocation();
-        routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()),new LatLng(51.82926685,4.77835536)));
-        //routeRequest(createRouteURL(new LatLng(51.82328574,4.77466464),new LatLng(51.82926685,4.77835536)));
+        getCurrentLocation();
+        //routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()),new LatLng(51.82926685,4.77835536)));
+        //createRouteURL(new LatLng(51.82328574,4.77466464),new LatLng(51.82926685,4.77835536)));
     }
+
 
     private void getDeviceLocation() {
         try {
@@ -134,6 +168,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    private void getCurrentLocation(){
+        try {
+            if (hasLocationPermission()) {
+                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this.getActivity(), (task) -> {
+                    if (task.isSuccessful()) {
+                        lastKnownLocation = task.getResult();
+                        Log.i("LOC", "lat: " + lastKnownLocation.getLatitude() + "long: " + lastKnownLocation.getLongitude());
+                        routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()),new LatLng(51.82926685,4.77835536)));
+                    }
+                });
+            }
+        } catch (SecurityException e) {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
+
     private boolean hasLocationPermission() {
         return ContextCompat.checkSelfPermission(this.getActivity().getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
@@ -152,6 +204,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             if (hasLocationPermission()) {
                 map.setMyLocationEnabled(true);
                 map.getUiSettings().setMyLocationButtonEnabled(true);
+                lastKnownLocation = map.getMyLocation();
             } else {
                 map.setMyLocationEnabled(false);
                 map.getUiSettings().setMyLocationButtonEnabled(false);
@@ -161,6 +214,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
 
     private String createRouteURL(LatLng ownLocation,LatLng stationLocation) {
         // Origin of route
@@ -218,6 +272,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         else {
             Log.d("onPostExecute","without Polylines drawn");
         }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private void registerLocationUpdates() {
+        LocationRequest locationRequest = new LocationRequest()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10000)
+                .setSmallestDisplacement(10)
+                .setMaxWaitTime(1000)
+                .setFastestInterval(10000);
+
+        if (hasLocationPermission() && locationCallback != null)
+            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+    }
+
+    private void deregisterLocationUpdates() {
+        if (locationCallback != null)
+            fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
 
 
