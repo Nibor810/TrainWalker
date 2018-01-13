@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 /**
@@ -36,7 +38,7 @@ public class StationDBhelper extends SQLiteOpenHelper {
         for (Station station:getAllStations()) {
             Log.i("DATABASE", station.getName());
         }
-        GeoCoordinate coord = new GeoCoordinate(0,0);
+        LatLng coord = new LatLng(0,0);
         insertStation(new Station("Berlijn",coord));
         insertStation(new Station("Berlijn2",coord));
         insertStation(new Station("Berlijn3",coord));
@@ -56,7 +58,7 @@ public class StationDBhelper extends SQLiteOpenHelper {
         while(res.isAfterLast() == false){
             array_list.add(new Station(
                     res.getString(res.getColumnIndex(KEY_STATIONS_NAME)),
-                    new GeoCoordinate(res.getDouble(res.getColumnIndex(KEY_STATIONS_LATITUDE)),res.getDouble(res.getColumnIndex(KEY_STATIONS_LONGITUDE)))
+                    new LatLng(res.getDouble(res.getColumnIndex(KEY_STATIONS_LATITUDE)),res.getDouble(res.getColumnIndex(KEY_STATIONS_LONGITUDE)))
             ));
 
             res.moveToNext();
@@ -68,8 +70,8 @@ public class StationDBhelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_STATIONS_NAME, station.getName());
-        contentValues.put(KEY_STATIONS_LATITUDE, station.getCoordinate().getLatitude());
-        contentValues.put(KEY_STATIONS_LONGITUDE, station.getCoordinate().getLongitude());
+        contentValues.put(KEY_STATIONS_LATITUDE, station.getCoordinate().latitude);
+        contentValues.put(KEY_STATIONS_LONGITUDE, station.getCoordinate().longitude);
         db.insert(STATIONS_DATABASE_NAME, null, contentValues);
         return true;
     }
@@ -81,10 +83,10 @@ public class StationDBhelper extends SQLiteOpenHelper {
             res.moveToFirst();
             return new Station(
                     res.getString(res.getColumnIndex(KEY_STATIONS_NAME)),
-                    new GeoCoordinate(res.getDouble(res.getColumnIndex(KEY_STATIONS_LATITUDE)),res.getDouble(res.getColumnIndex(KEY_STATIONS_LONGITUDE)))
+                    new LatLng(res.getDouble(res.getColumnIndex(KEY_STATIONS_LATITUDE)),res.getDouble(res.getColumnIndex(KEY_STATIONS_LONGITUDE)))
                     );
         }
-        return new Station("",new GeoCoordinate(0,0));
+        return new Station("",new LatLng(0,0));
     }
 
     @Override
