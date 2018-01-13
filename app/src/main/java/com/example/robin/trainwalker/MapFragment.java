@@ -61,7 +61,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     public MapFragment() {
         // Required empty public constructor
-
     }
 
     public static MapFragment newInstance() {
@@ -90,6 +89,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 Log.i("LOC","LOL");
             }
         };
+        //TODO: get Stationdata form database using name
+        if(ChosenTrainSingleton.getInstance().getChosenOriginStation() == null){
+            //TODO: get favorite Station from shared Preferences
+        } else {
+            StationDBhelper db = new StationDBhelper(this.getContext());
+            destination = db.getStation(ChosenTrainSingleton.getInstance().getChosenOriginStation()).getCoordinate();
+        }
         createGoogleApi();
     }
 

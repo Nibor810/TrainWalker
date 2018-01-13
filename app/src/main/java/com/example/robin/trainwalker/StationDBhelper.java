@@ -39,7 +39,7 @@ public class StationDBhelper extends SQLiteOpenHelper {
             Log.i("DATABASE", station.getName());
         }
         LatLng coord = new LatLng(0,0);
-        insertStation(new Station("Berlijn",coord));
+        insertStation(new Station("Sliedrecht",new LatLng(51.82926685,4.77835536)));
         insertStation(new Station("Berlijn2",coord));
         insertStation(new Station("Berlijn3",coord));
         insertStation(new Station("Berlijn4",coord));
