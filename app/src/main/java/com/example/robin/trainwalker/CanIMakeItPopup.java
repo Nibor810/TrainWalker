@@ -64,20 +64,18 @@ public class CanIMakeItPopup extends Dialog{
         });
         progressBar.setIndeterminate(true);
         getTrainDepartureTime();
-        //TODO: turn off progressbar and display time of train
     }
 
     private void getTrainDepartureTime() {
-
         Date arrivalDate = calculateTrainDepartureTime();
         List<Date> nsTraintimes= new ArrayList<>();
-        //TODO:get train times from NS API, following 2 lines of code must happen AFTER request is done.
+        //TODO: Prioriteit: Hoog, get train times from NS API, following 2 lines of code must happen AFTER request is done.
         textViewTime.setText(getFirstPossibleDate(nsTraintimes,arrivalDate));
         ((ViewGroup)progressBar.getParent()).removeView(progressBar);
     }
 
     private String getFirstPossibleDate(List<Date> dates,Date arrivalDate){
-        //TODO: make sure dates is sorted for early to late
+        //TODO: Prioriteit: Hoog,  make sure dates is sorted for early to late
         if(!dates.isEmpty()) {
             for (Date date : dates) {
                 if (arrivalDate.before(date)) {

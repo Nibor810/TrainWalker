@@ -62,7 +62,7 @@ public class SettingsFragment extends Fragment {
         editor.putString("WalkingSpeed", walkspeedTextBox.getText().toString());
         editor.commit();
 
-        //TODO: remove test for database
+        //TODO: Prioriteit: Midden,  remove test for database
 
         StationDBhelper db = new StationDBhelper(getContext());
         db.testDatabase();

@@ -96,7 +96,7 @@ public class StationDBhelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        //TODO: wat als de database word geupdate. nu tijdelijk wordt de database gedropt.
+        //TODO: Prioriteit: Laag, wat als de database word geupdate. nu tijdelijk wordt de database gedropt.
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ STATIONS_DATABASE_NAME);
         onCreate(sqLiteDatabase);
     }
