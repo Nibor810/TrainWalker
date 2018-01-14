@@ -10,13 +10,14 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by robin on 10-1-2018.
  */
 
 public class StationDBhelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
     private static final String STATIONS_DATABASE_NAME = "stations";
     private static final String KEY_STATIONS_NAME = "name";
     private static final String KEY_STATIONS_LATITUDE = "latitude";
@@ -109,4 +110,10 @@ public class StationDBhelper extends SQLiteOpenHelper {
         return list;
     }
 
+    public void addStations(List<Station> stations) {
+        for (Station station:stations) {
+            insertStation(station);
+        }
+
+    }
 }

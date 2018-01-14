@@ -110,7 +110,7 @@ public class DRApiResponseParser {
 
             e.printStackTrace();
         }
-
+        Log.i("DB","done met parsen");
         return stations;
     }
 

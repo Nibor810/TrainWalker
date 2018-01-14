@@ -9,12 +9,16 @@ import android.util.Log;
 public class DRApiController
 {
     private DRApiResponseParser drApiResponseParser;
+    private ResponseListener listener;
     private String username;
     private String password;
 
-    public DRApiController() {
+    public DRApiController(final ResponseListener listener) {
         
         drApiResponseParser = new DRApiResponseParser();
+        this.listener = listener;
+        username = "arthurvanstrien@gmail.com";
+        password = "s4n7wMK_bkF6pOsk4V3_p65CJsKlTmTRNlTUvP0_JD88XlBDdxWTLQ";
     }
 
     public void requestStations() {
@@ -65,9 +69,9 @@ public class DRApiController
 
         @Override
         public void processFinished(String result) {
-
+            Log.i("DB",result);
             if(result != null)
-                drApiResponseParser.parseStationRequest(result);
+                listener.getResult(drApiResponseParser.parseStationRequest(result));
             else
                 Log.d("ERROR", "Unable to request the list of railway stations.");
         }
@@ -88,7 +92,7 @@ public class DRApiController
     public void processFinished(String result) {
 
         if(result != null)
-            drApiResponseParser.parseStationDepartingTrains(result, stationName);
+            listener.getResult(drApiResponseParser.parseStationDepartingTrains(result, stationName));
         else
             Log.d("ERROR", "Unable to parse the list of departing trains");
     }

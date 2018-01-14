@@ -61,11 +61,6 @@ public class SettingsFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("WalkingSpeed", walkspeedTextBox.getText().toString());
         editor.commit();
-
-        //TODO: Prioriteit: Midden,  remove test for database
-
-        StationDBhelper db = new StationDBhelper(getContext());
-        db.testDatabase();
     }
 
     private String getWalkingSpeed(){
