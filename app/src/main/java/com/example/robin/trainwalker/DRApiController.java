@@ -77,26 +77,29 @@ public class DRApiController
         }
     }
 
-    private class RequestStationDepartingTrains implements AsyncResponse {
+    private class RequestStationDepartingTrains implements AsyncResponse
+    {
 
-    private String stationName;
+        private String stationName;
 
-    public RequestStationDepartingTrains(String stationName) {
+        public RequestStationDepartingTrains(String stationName)
+        {
 
-        this.stationName = stationName;
-        String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
-        new RequestController(username, password, urlString, this).execute();
+            this.stationName = stationName;
+            String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
+            new RequestController(username, password, urlString, this).execute();
+        }
+
+        @Override
+        public void processFinished(String result)
+        {
+
+            if (result != null)
+                listener.getResult(drApiResponseParser.parseStationDepartingTrains(result, stationName));
+            else
+                Log.d("ERROR", "Unable to parse the list of departing trains");
+        }
     }
-
-    @Override
-    public void processFinished(String result) {
-
-        if(result != null)
-            listener.getResult(drApiResponseParser.parseStationDepartingTrains(result, stationName));
-        else
-            Log.d("ERROR", "Unable to parse the list of departing trains");
-    }
-}
 
     private class RequestStationInterruption implements AsyncResponse {
 
@@ -116,18 +119,25 @@ public class DRApiController
 
     private class RequestTravelOptions implements AsyncResponse {
 
+        private String fromStation;
+        private String toStation;
+
         public RequestTravelOptions(String fromStation, String toStation) {
+
+            this.fromStation = fromStation;
+            this.toStation = toStation;
 
             String urlString = "https://webservices.ns.nl/ns-api-treinplanner?fromStation=" + fromStation + "&toStation=" + toStation;
             new RequestController(username, password, urlString, this).execute();
         }
 
         @Override
-        public void processFinished(String result)
-        {
-            //TODO PARSE RESULT.
-            listener.getResult(result);
-            System.out.println(result);
+        public void processFinished(String result) {
+
+            if(result != null)
+                drApiResponseParser.parseTravelOptions(result, fromStation, toStation);
+            else
+                Log.d("ERROR", "Unable to parse the list of travel options.");
         }
     }
 }
