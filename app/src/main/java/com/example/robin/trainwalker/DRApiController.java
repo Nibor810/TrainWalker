@@ -32,9 +32,9 @@ public class DRApiController
      * list contains 12 trains to meet the minimum of an hour of trains.
      * @param stationName
      */
-    public void requestStationDepartureTime(String stationName) {
+    public void requestStationDepartingTrains(String stationName) {
 
-        new RequestStationDepartureTimes(stationName);
+        new RequestStationDepartingTrains(stationName);
     }
 
     /**
@@ -73,21 +73,26 @@ public class DRApiController
         }
     }
 
-    private class RequestStationDepartureTimes implements AsyncResponse {
+    private class RequestStationDepartingTrains implements AsyncResponse {
 
-        public RequestStationDepartureTimes(String stationName) {
+    private String stationName;
 
-            String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
-            new RequestController(username, password, urlString, this).execute();
-        }
+    public RequestStationDepartingTrains(String stationName) {
 
-        @Override
-        public void processFinished(String result) {
-
-            //TODO PARSE RESULT.
-            System.out.println(result);
-        }
+        this.stationName = stationName;
+        String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
+        new RequestController(username, password, urlString, this).execute();
     }
+
+    @Override
+    public void processFinished(String result) {
+
+        if(result != null)
+            drApiResponseParser.parseStationDepartingTrains(result, stationName);
+        else
+            Log.d("ERROR", "Unable to parse the list of departing trains");
+    }
+}
 
     private class RequestStationInterruption implements AsyncResponse {
 
