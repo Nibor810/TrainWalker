@@ -38,10 +38,11 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCallBack {
     public final static String KEY_ROUTE = "ROUTE";
     private final static int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     private final static float DEFAULT_ZOOM = 18f;
@@ -57,6 +58,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private LatLng defaultLocation = new LatLng(0, 0);
     private LocationCallback locationCallback;
     private LatLng destination = new LatLng(51.82926685,4.77835536);
+    List<List<LatLng>> route;
 
 
     public MapFragment() {
@@ -222,7 +224,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             JSONObject response = (JSONObject) object;
             Log.i("Route",response.toString());
             RouteDataParser dataParser = new RouteDataParser();
-            drawRoute(dataParser.parseRoutesInfo(response));
+            //drawRoute();
+            route = dataParser.parseRoutesInfo(response);
+            showPopup(dataParser.parseWalkingTimeInSeconds(response));
             //TODO: Route opslaan zodat bij het verlaten van de fragment de route niet opnieuw opgehaalt hoeft te worden.
         });
     }
@@ -261,5 +265,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
 
+    private void showPopup(int travelTime){
+        CanIMakeItPopup customDialog =new CanIMakeItPopup(this.getContext(),this,travelTime);
+        customDialog.show();
+    }
 
+
+    @Override
+    public void doAfterPopup() {
+        drawRoute(route);
+    }
 }

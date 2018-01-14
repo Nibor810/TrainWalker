@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,5 +83,22 @@ class RouteDataParser {
         }
 
         return poly;
+    }
+
+    public int parseWalkingTimeInSeconds(JSONObject jObject) {
+        List<List<LatLng>> routes = new ArrayList<>();
+        int durationInSeconds = 0;
+        JSONArray jRoutes;
+        try {
+            jRoutes = jObject.getJSONArray("routes");
+            JSONArray legs = jRoutes.getJSONObject(0).getJSONArray("legs");
+            JSONObject leg = legs.getJSONObject(0);
+            durationInSeconds = leg.getJSONObject("duration").getInt("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return durationInSeconds;
     }
 }
