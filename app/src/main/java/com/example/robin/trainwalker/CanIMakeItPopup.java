@@ -23,8 +23,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by robin on 12-1-2018.
@@ -37,7 +39,7 @@ public class CanIMakeItPopup extends Dialog{
     PopUpCallBack callBack;
     ProgressBar progressBar;
     int travelTime;
-    
+
     public CanIMakeItPopup(@NonNull Context context, PopUpCallBack callBack, int travelTime) {
         super(context);
         this.callBack = callBack;
@@ -66,6 +68,22 @@ public class CanIMakeItPopup extends Dialog{
 
     private void getTrainDepartureTime() {
 
+        Date arrivalDate = calculateTrainDepartureTime();
+        List<Date> nsTraintimes= new ArrayList<>();
+        //TODO:get train times from NS API
+        textViewTime.setText(getFirstPossibleDate(nsTraintimes,arrivalDate));
+    }
+
+    private String getFirstPossibleDate(List<Date> dates,Date arrivalDate){
+        //TODO: make sure dates is sorted for early to late
+        if(!dates.isEmpty()) {
+            for (Date date : dates) {
+                if (arrivalDate.before(date)) {
+                    return date.toString();
+                }
+            }
+        }
+        return "There are no trains available";
     }
 
     private void goToMapFragment() {
