@@ -112,17 +112,25 @@ public class DRApiController
 
     private class RequestTravelOptions implements AsyncResponse {
 
+        private String fromStation;
+        private String toStation;
+
         public RequestTravelOptions(String fromStation, String toStation) {
+
+            this.fromStation = fromStation;
+            this.toStation = toStation;
 
             String urlString = "https://webservices.ns.nl/ns-api-treinplanner?fromStation=" + fromStation + "&toStation=" + toStation;
             new RequestController(username, password, urlString, this).execute();
         }
 
         @Override
-        public void processFinished(String result)
-        {
-            //TODO PARSE RESULT.
-            System.out.println(result);
+        public void processFinished(String result) {
+
+            if(result != null)
+                drApiResponseParser.parseTravelOptions(result, fromStation, toStation);
+            else
+                Log.d("ERROR", "Unable to parse the list of travel options.");
         }
     }
 }
