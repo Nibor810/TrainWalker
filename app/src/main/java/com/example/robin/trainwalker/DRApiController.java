@@ -135,7 +135,7 @@ public class DRApiController
         public void processFinished(String result) {
 
             if(result != null)
-                drApiResponseParser.parseTravelOptions(result, fromStation, toStation);
+                listener.getResult(drApiResponseParser.parseTravelOptions(result, fromStation, toStation));
             else
                 Log.d("ERROR", "Unable to parse the list of travel options.");
         }
