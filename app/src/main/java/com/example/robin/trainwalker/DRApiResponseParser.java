@@ -183,4 +183,55 @@ public class DRApiResponseParser {
 
         return trains;
     }
+
+    public List<Train> parseTravelOptions(String responseString, String startStation, String endStation) {
+
+        Log.d("MESSAGE", "Parsing travel options request.");
+
+        List<Train> trains = new ArrayList<>();
+
+        try {
+
+            xmlPullParser.setInput(new StringReader(responseString));
+            int eventType = xmlPullParser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT) {
+
+                if(eventType == XmlPullParser.START_TAG && xmlPullParser.getName().equals("ReisMogelijkheid")) {
+
+                    String departureTime = "";
+
+                    while (!(eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equals("ReisMogelijkheid"))) {
+
+                        if(eventType == XmlPullParser.START_TAG) {
+
+                            if(xmlPullParser.getName().equals("GeplandeVertrektijd")) {
+
+                                //Skip to the content of the GeplandeVertrektijd tag.
+                                xmlPullParser.next();
+                                departureTime = xmlPullParser.getText();
+                            }
+                        }
+
+                        eventType = xmlPullParser.next();
+                    }
+
+                    trains.add(new Train(startStation, endStation, departureTime, "", ""));
+                }
+
+                eventType = xmlPullParser.next();
+            }
+
+        }
+        catch (XmlPullParserException e) {
+
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        return trains;
+    }
 }
