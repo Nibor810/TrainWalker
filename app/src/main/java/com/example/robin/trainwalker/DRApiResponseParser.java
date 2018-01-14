@@ -47,7 +47,6 @@ public class DRApiResponseParser {
 
             xmlPullParser.setInput(new StringReader(responseString));
             int eventType = xmlPullParser.getEventType();
-            int i = 0;
 
             while(eventType != XmlPullParser.END_DOCUMENT) {
 
@@ -122,7 +121,6 @@ public class DRApiResponseParser {
 
             xmlPullParser.setInput(new StringReader(responseString));
             int eventType = xmlPullParser.getEventType();
-            int i = 0;
 
             while(eventType != XmlPullParser.END_DOCUMENT) {
 
