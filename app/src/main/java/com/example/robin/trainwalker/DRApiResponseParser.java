@@ -111,4 +111,78 @@ public class DRApiResponseParser {
 
         return stations;
     }
+
+    public List<Train> parseStationDepartingTrains(String responseString, String startStation) {
+
+        Log.d("MESSAGE", "Parsing station departure times request");
+
+        List<Train> trains = new ArrayList<>();
+
+        try {
+
+            xmlPullParser.setInput(new StringReader(responseString));
+            int eventType = xmlPullParser.getEventType();
+            int i = 0;
+
+            while(eventType != XmlPullParser.END_DOCUMENT) {
+
+                if(eventType == XmlPullParser.START_TAG && xmlPullParser.getName().equals("VertrekkendeTrein")) {
+
+                    String endStation = "";
+                    String departureTime = "";
+                    String traintype = "";
+                    String departureTrack = "";
+
+                    while (!(eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equals("VertrekkendeTrein"))) {
+
+                        if(eventType == XmlPullParser.START_TAG) {
+
+                            //Loop through the names and retrieve the name with the tag "long - lang".
+                            if(xmlPullParser.getName().equals("VertrekTijd")) {
+
+                                //Skip to the content of the VertrekTijd tag.
+                                xmlPullParser.next();
+                                departureTime = xmlPullParser.getText();
+                            }
+                            else if(xmlPullParser.getName().equals("EindBestemming")) {
+
+                                //Skip to the content of the EindBestemming tag.
+                                xmlPullParser.next();
+                                endStation = xmlPullParser.getText();
+                            }
+                            else if(xmlPullParser.getName().equals("TreinSoort")) {
+
+                                //Skip to the content of the TreinSoort tag.
+                                xmlPullParser.next();
+                                traintype = xmlPullParser.getText();
+                            }
+                            else if(xmlPullParser.getName().equals("VertrekSpoor")) {
+
+                                //Skip to the content of the VertrekSpoor tag.
+                                xmlPullParser.next();
+                                departureTrack = xmlPullParser.getText();
+                            }
+                        }
+
+                        eventType = xmlPullParser.next();
+                    }
+
+                    trains.add(new Train(startStation, endStation, departureTime, traintype, departureTrack));
+                }
+
+                eventType = xmlPullParser.next();
+            }
+
+        }
+        catch (XmlPullParserException e) {
+
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        return trains;
+    }
 }
