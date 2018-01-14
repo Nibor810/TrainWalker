@@ -50,9 +50,9 @@ public class DRApiController
         new RequestStationInterruption(stationName, planned, unplanned);
     }
 
-    public void requestTravelAdvice(String fromStation, String toStation) {
+    public void requestTravelOptions(String fromStation, String toStation) {
 
-        new RequestTravelAdvice(fromStation, toStation);
+        new RequestTravelOptions(fromStation, toStation);
     }
 
     private class RequestStations implements AsyncResponse {
@@ -110,9 +110,9 @@ public class DRApiController
         }
     }
 
-    private class RequestTravelAdvice implements AsyncResponse {
+    private class RequestTravelOptions implements AsyncResponse {
 
-        public RequestTravelAdvice(String fromStation, String toStation) {
+        public RequestTravelOptions(String fromStation, String toStation) {
 
             String urlString = "https://webservices.ns.nl/ns-api-treinplanner?fromStation=" + fromStation + "&toStation=" + toStation;
             new RequestController(username, password, urlString, this).execute();
