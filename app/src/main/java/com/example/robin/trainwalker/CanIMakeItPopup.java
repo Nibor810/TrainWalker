@@ -49,6 +49,7 @@ public class CanIMakeItPopup extends Dialog{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fragment_popup_can_i_make_it);

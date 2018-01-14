@@ -8,11 +8,15 @@ class Train {
     private String startStation;
     private String endStation;
     private String departureTime;
+    private String trainType;
+    private String departureTrack;
 
-    Train(String startStation, String endStation, String departureTime) {
+    Train(String startStation, String endStation, String departureTime, String trainType, String departureTrack) {
         this.startStation = startStation;
         this.endStation = endStation;
         this.departureTime = departureTime;
+        this.trainType = trainType;
+        this.departureTrack = departureTrack;
     }
 
     Train(String startStation, String endStation){
@@ -31,6 +35,14 @@ class Train {
 
     public String getDepartureTime() {
         return departureTime;
+    }
+
+    public String getTrainType() {
+        return trainType;
+    }
+
+    public String getDepartureTrack() {
+        return departureTrack;
     }
 
     public String getName() {

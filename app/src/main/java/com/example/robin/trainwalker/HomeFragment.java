@@ -14,6 +14,10 @@ public class HomeFragment extends Fragment{
     Button differentTrainButton;
     BottomNavigationView navigation;
 
+    private BottomNavigationView navigation;
+    private Button favoriteTrainButton;
+    private Button differentTrainButton;
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -21,12 +25,13 @@ public class HomeFragment extends Fragment{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         navigation = getActivity().findViewById(R.id.navigation);
         favoriteTrainButton = view.findViewById(R.id.home_button_favoriteTrain);
