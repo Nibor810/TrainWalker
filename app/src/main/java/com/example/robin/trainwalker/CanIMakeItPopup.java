@@ -69,7 +69,16 @@ public class CanIMakeItPopup extends Dialog{
     private void getTrainDepartureTime() {
         Date arrivalDate = calculateTrainDepartureTime();
         List<Date> nsTraintimes= new ArrayList<>();
+        String originStation = "";
+        String destinationStation = "";
         //TODO: Prioriteit: Hoog, get train times from NS API, following 2 lines of code must happen AFTER request is done.
+        new DRApiController(new ResponseListener() {
+            @Override
+            public void getResult(Object object) {
+                StationDBhelper db = new StationDBhelper(getContext());
+                db.addStations((List<Station>) object);
+            }
+        }).requestTravelOptions(originStation,destinationStation);
         textViewTime.setText(getFirstPossibleDate(nsTraintimes,arrivalDate));
         ((ViewGroup)progressBar.getParent()).removeView(progressBar);
     }

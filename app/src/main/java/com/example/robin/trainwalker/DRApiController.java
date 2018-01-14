@@ -126,6 +126,7 @@ public class DRApiController
         public void processFinished(String result)
         {
             //TODO PARSE RESULT.
+            listener.getResult(result);
             System.out.println(result);
         }
     }
