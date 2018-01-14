@@ -91,6 +91,9 @@ public class CanIMakeItPopup extends Dialog{
         //2018-01-14T23:10:00+0100
         if(!trains.isEmpty()) {
             List<Date> dates = new ArrayList<>();
+
+            //TODO: Prioriteit Laag, preset date time in more user friendly format.
+
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+0100'");
             for (Train train:trains) {
                 Log.i("DATE", train.getDepartureTime());
