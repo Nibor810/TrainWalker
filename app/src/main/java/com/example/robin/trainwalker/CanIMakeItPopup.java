@@ -24,6 +24,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -82,12 +84,27 @@ public class CanIMakeItPopup extends Dialog{
     }
 
     private String getFirstPossibleDate(List<Train> trains,Date arrivalDate){
+        for (Train train:trains) {
+            Log.i("DATE", train.getDepartureTime()+" - "+train.getStartStation());
+        }
         //TODO: Prioriteit: Hoog,  make sure dates is sorted for early to late
+        //2018-01-14T23:10:00+0100
         if(!trains.isEmpty()) {
             List<Date> dates = new ArrayList<>();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+0100'");
             for (Train train:trains) {
-                Date date = train.getDepartureTime();
-                dates.add(date);
+                Log.i("DATE", train.getDepartureTime());
+            }
+
+            for (Train train:trains) {
+                Log.i("DATE", train.getDepartureTime());
+                try {
+                    Date date = format.parse(train.getDepartureTime());
+                    Log.i("DATE",date.toString());
+                    dates.add(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
             for (Date date : dates) {
                 if (arrivalDate.before(date)) {
