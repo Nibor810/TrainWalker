@@ -1,15 +1,11 @@
 package com.example.robin.trainwalker;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -32,15 +28,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.Task;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCallBack {
@@ -58,7 +50,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LatLng defaultLocation = new LatLng(0, 0);
     private LocationCallback locationCallback;
-    private LatLng destination = new LatLng(51.82926685,4.77835536);
+    private Station originStation = new Station("Sliedrecht",new LatLng(51.82926685,4.77835536));
+    private Station destinationStation = new Station("Sliedrecht",new LatLng(51.82926685,4.77835536));
     List<List<LatLng>> route;
 
 
@@ -90,16 +83,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
                 //TODO: Prioriteit: Laag, wat te doen als locatie verandert.
             }
         };
-        destination = getStation().getCoordinate();
+        originStation = getOriginStation();
+        destinationStation = getDestinationStation();
         createGoogleApi();
     }
 
-    private Station getStation() {
+    private Station getOriginStation() {
         StationDBhelper db = new StationDBhelper(this.getContext());
         String station;
         if(ChosenTrainSingleton.getInstance().getChosenOriginStation() == null){
             SharedPreferences sharedPref = getContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
             station = sharedPref.getString("originStation"," ");
+        } else {
+            station = ChosenTrainSingleton.getInstance().getChosenOriginStation();
+        }
+        return db.getStation(station);
+    }
+
+    private Station getDestinationStation() {
+        StationDBhelper db = new StationDBhelper(this.getContext());
+        String station;
+        if(ChosenTrainSingleton.getInstance().getChosenOriginStation() == null){
+            SharedPreferences sharedPref = getContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
+            station = sharedPref.getString("destinationStation"," ");
         } else {
             station = ChosenTrainSingleton.getInstance().getChosenOriginStation();
         }
@@ -164,7 +170,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
                 locationResult.addOnCompleteListener(this.getActivity(), (task) -> {
                     if (task.isSuccessful()) {
                         lastKnownLocation = task.getResult();
-                        routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()),destination));
+                        routeRequest(createRouteURL(new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude()), originStation.getCoordinate()));
                         if (cameraPosition == null && lastKnownLocation != null)
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(lastKnownLocation.getLatitude(),
@@ -271,7 +277,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
     }
 
     private void showPopup(int travelTime){
-        CanIMakeItPopup customDialog =new CanIMakeItPopup(this.getContext(),this,travelTime);
+        CanIMakeItPopup customDialog =new CanIMakeItPopup(this.getContext(),this,travelTime, originStation,destinationStation);
         customDialog.show();
     }
 

@@ -39,12 +39,16 @@ public class CanIMakeItPopup extends Dialog{
     TextView textViewTime;
     PopUpCallBack callBack;
     ProgressBar progressBar;
+    Station originStation;
+    Station destinationStation;
     int travelTime;
 
-    public CanIMakeItPopup(@NonNull Context context, PopUpCallBack callBack, int travelTime) {
+    public CanIMakeItPopup(@NonNull Context context, PopUpCallBack callBack, int travelTime, Station originStation, Station destinationStation) {
         super(context);
         this.callBack = callBack;
         this.travelTime = travelTime;
+        this.originStation = originStation;
+        this.destinationStation = destinationStation;
     }
 
     @Override
@@ -68,24 +72,23 @@ public class CanIMakeItPopup extends Dialog{
 
     private void getTrainDepartureTime() {
         Date arrivalDate = calculateTrainDepartureTime();
-        List<Date> nsTraintimes= new ArrayList<>();
-        String originStation = "";
-        String destinationStation = "";
-        //TODO: Prioriteit: Hoog, get train times from NS API, following 2 lines of code must happen AFTER request is done.
         new DRApiController(new ResponseListener() {
             @Override
             public void getResult(Object object) {
-                StationDBhelper db = new StationDBhelper(getContext());
-                db.addStations((List<Station>) object);
+                textViewTime.setText(getFirstPossibleDate((List<Train>) object,arrivalDate));
+                ((ViewGroup)progressBar.getParent()).removeView(progressBar);
             }
-        }).requestTravelOptions(originStation,destinationStation);
-        textViewTime.setText(getFirstPossibleDate(nsTraintimes,arrivalDate));
-        ((ViewGroup)progressBar.getParent()).removeView(progressBar);
+        }).requestTravelOptions(originStation.getName(),destinationStation.getName());
     }
 
-    private String getFirstPossibleDate(List<Date> dates,Date arrivalDate){
+    private String getFirstPossibleDate(List<Train> trains,Date arrivalDate){
         //TODO: Prioriteit: Hoog,  make sure dates is sorted for early to late
-        if(!dates.isEmpty()) {
+        if(!trains.isEmpty()) {
+            List<Date> dates = new ArrayList<>();
+            for (Train train:trains) {
+                Date date = train.getDepartureTime();
+                dates.add(date);
+            }
             for (Date date : dates) {
                 if (arrivalDate.before(date)) {
                     return date.toString();
