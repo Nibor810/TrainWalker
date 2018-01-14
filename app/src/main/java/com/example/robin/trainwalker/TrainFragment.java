@@ -62,5 +62,6 @@ public class TrainFragment extends Fragment{
 
     private void saveChosenTrain() {
         ChosenTrainSingleton.getInstance().setChosenOriginStation(originStation.getText().toString());
+        ChosenTrainSingleton.getInstance().setChosenDestinationStation(destinationStation.getText().toString());
     }
 }
