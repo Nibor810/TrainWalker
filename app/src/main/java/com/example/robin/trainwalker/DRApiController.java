@@ -66,8 +66,10 @@ public class DRApiController
         @Override
         public void processFinished(String result) {
 
-            //TODO PARSE RESULT.
-            System.out.println(result);
+            if(result != null)
+                drApiResponseParser.parseStationRequest(result);
+            else
+                Log.d("ERROR", "Unable to request the list of railway stations.");
         }
     }
 
