@@ -69,6 +69,7 @@ public class DRApiController
 
         @Override
         public void processFinished(String result) {
+
             Log.i("DB",result);
             if(result != null)
                 listener.getResult(drApiResponseParser.parseStationRequest(result));
@@ -77,13 +78,11 @@ public class DRApiController
         }
     }
 
-    private class RequestStationDepartingTrains implements AsyncResponse
-    {
+    private class RequestStationDepartingTrains implements AsyncResponse {
 
         private String stationName;
 
-        public RequestStationDepartingTrains(String stationName)
-        {
+        public RequestStationDepartingTrains(String stationName) {
 
             this.stationName = stationName;
             String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
@@ -91,8 +90,7 @@ public class DRApiController
         }
 
         @Override
-        public void processFinished(String result)
-        {
+        public void processFinished(String result) {
 
             if (result != null)
                 listener.getResult(drApiResponseParser.parseStationDepartingTrains(result, stationName));
