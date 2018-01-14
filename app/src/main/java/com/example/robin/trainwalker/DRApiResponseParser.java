@@ -191,6 +191,7 @@ public class DRApiResponseParser {
         Log.d("MESSAGE", "Parsing travel options request.");
 
         List<Train> trains = new ArrayList<>();
+        String departureTime = "";
 
         try {
 
@@ -201,13 +202,11 @@ public class DRApiResponseParser {
 
                 if(eventType == XmlPullParser.START_TAG && xmlPullParser.getName().equals("ReisMogelijkheid")) {
 
-                    String departureTime = "";
-
                     while (!(eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equals("ReisMogelijkheid"))) {
 
                         if(eventType == XmlPullParser.START_TAG) {
 
-                            if(xmlPullParser.getName().equals("GeplandeVertrektijd")) {
+                            if(xmlPullParser.getName().equals("GeplandeVertrekTijd")) {
 
                                 //Skip to the content of the GeplandeVertrektijd tag.
                                 xmlPullParser.next();
