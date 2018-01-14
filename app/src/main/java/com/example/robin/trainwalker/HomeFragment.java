@@ -10,10 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class HomeFragment extends Fragment{
-    Button favoriteTrainButton;
-    Button differentTrainButton;
-    BottomNavigationView navigation;
-
     private BottomNavigationView navigation;
     private Button favoriteTrainButton;
     private Button differentTrainButton;
