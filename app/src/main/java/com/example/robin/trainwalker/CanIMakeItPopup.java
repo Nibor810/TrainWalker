@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -70,8 +71,9 @@ public class CanIMakeItPopup extends Dialog{
 
         Date arrivalDate = calculateTrainDepartureTime();
         List<Date> nsTraintimes= new ArrayList<>();
-        //TODO:get train times from NS API
+        //TODO:get train times from NS API, following 2 lines of code must happen AFTER request is done.
         textViewTime.setText(getFirstPossibleDate(nsTraintimes,arrivalDate));
+        ((ViewGroup)progressBar.getParent()).removeView(progressBar);
     }
 
     private String getFirstPossibleDate(List<Date> dates,Date arrivalDate){
