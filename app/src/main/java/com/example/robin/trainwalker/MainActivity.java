@@ -1,5 +1,7 @@
 package com.example.robin.trainwalker;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +12,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -53,21 +57,41 @@ public class MainActivity extends AppCompatActivity{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame,HomeFragment.newInstance());
         transaction.commit();
-        //TODO: Prioriteit: Hoog, haal alle stations op, 1 keer per week ongeveer, en plaats deze in database.
         updateDatabase();
     }
 
     private void updateDatabase(){
-        //TODO: Prioriteit: Midden,
-        Log.i("DB","updateDatabase()");
-        new DRApiController(new ResponseListener() {
-            @Override
-            public void getResult(Object object) {
-                StationDBhelper db = new StationDBhelper(getApplicationContext());
-                db.addStations((List<Station>) object);
-            }
-        }).requestStations();
+        if(needToUpdateDatabase()) {
+            new DRApiController(new ResponseListener() {
+                @Override
+                public void getResult(Object object) {
+                    StationDBhelper db = new StationDBhelper(getApplicationContext());
+                    db.addStations((List<Station>) object);
+                }
+            }).requestStations();
+        }
+    }
 
+    private boolean needToUpdateDatabase() {
+        Date currentDate = Calendar.getInstance().getTime();
+        Date lastDatePlusAWeek = new Date(getLatestStationGetDate().getTime()+(1000*60*60*24*7));
+        if(currentDate.after(lastDatePlusAWeek)){
+            saveLatestStationGetDate(currentDate);
+            return true;
+        }
+        return false;
+    }
+
+    private void saveLatestStationGetDate(Date date) {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MY_PREF", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("LatestStationGetDate", String.valueOf(date.getTime()));
+        editor.commit();
+    }
+
+    private Date getLatestStationGetDate(){
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
+        return new Date(Long.valueOf(sharedPref.getString("LatestStationGetDate","0")));
     }
 
 }
