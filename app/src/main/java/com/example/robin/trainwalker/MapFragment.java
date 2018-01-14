@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -91,14 +92,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
                 Log.i("LOC","LOL");
             }
         };
-        //TODO: get Stationdata form database using name
-        if(ChosenTrainSingleton.getInstance().getChosenOriginStation() == null){
-            //TODO: get favorite Station from shared Preferences
-        } else {
-            StationDBhelper db = new StationDBhelper(this.getContext());
-            destination = db.getStation(ChosenTrainSingleton.getInstance().getChosenOriginStation()).getCoordinate();
-        }
+        destination = getStation().getCoordinate();
         createGoogleApi();
+    }
+
+    private Station getStation() {
+        StationDBhelper db = new StationDBhelper(this.getContext());
+        String station;
+        if(ChosenTrainSingleton.getInstance().getChosenOriginStation() == null){
+            SharedPreferences sharedPref = getContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
+            station = sharedPref.getString("originStation"," ");
+        } else {
+            station = ChosenTrainSingleton.getInstance().getChosenOriginStation();
+        }
+        return db.getStation(station);
     }
 
     @Override

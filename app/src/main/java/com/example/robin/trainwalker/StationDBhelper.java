@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 
 public class StationDBhelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
     private static final String STATIONS_DATABASE_NAME = "stations";
     private static final String KEY_STATIONS_NAME = "name";
     private static final String KEY_STATIONS_LATITUDE = "latitude";
@@ -40,7 +40,7 @@ public class StationDBhelper extends SQLiteOpenHelper {
         }
         LatLng coord = new LatLng(0,0);
         insertStation(new Station("Sliedrecht",new LatLng(51.82926685,4.77835536)));
-        insertStation(new Station("Berlijn2",coord));
+        insertStation(new Station("Sliedrecht Baanhoek",new LatLng(51.8290613,4.74273294)));
         insertStation(new Station("Berlijn3",coord));
         insertStation(new Station("Berlijn4",coord));
         insertStation(new Station("Berlijn5",coord));
