@@ -1,18 +1,20 @@
 package com.example.robin.trainwalker;
 
+import android.util.Log;
+
 /**
  * Created by Arthur on 16-12-2017.
  */
 
 public class DRApiController
 {
-
+    private DRApiResponseParser drApiResponseParser;
     private String username;
     private String password;
 
     public DRApiController() {
-
-
+        
+        drApiResponseParser = new DRApiResponseParser();
     }
 
     public void requestStations() {
