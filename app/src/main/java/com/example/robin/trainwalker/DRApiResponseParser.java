@@ -2,6 +2,8 @@ package com.example.robin.trainwalker;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -92,7 +94,7 @@ public class DRApiResponseParser {
                         eventType = xmlPullParser.next();
                     }
 
-                    stations.add(new Station(stationName, new GeoCoordinate(latitude, longitude)));
+                    stations.add(new Station(stationName, new LatLng(latitude, longitude)));
                 }
 
                 eventType = xmlPullParser.next();
@@ -107,7 +109,7 @@ public class DRApiResponseParser {
 
             e.printStackTrace();
         }
-
+        Log.i("DB","done met parsen");
         return stations;
     }
 

@@ -9,12 +9,16 @@ import android.util.Log;
 public class DRApiController
 {
     private DRApiResponseParser drApiResponseParser;
+    private ResponseListener listener;
     private String username;
     private String password;
 
-    public DRApiController() {
+    public DRApiController(final ResponseListener listener) {
         
         drApiResponseParser = new DRApiResponseParser();
+        this.listener = listener;
+        username = "arthurvanstrien@gmail.com";
+        password = "s4n7wMK_bkF6pOsk4V3_p65CJsKlTmTRNlTUvP0_JD88XlBDdxWTLQ";
     }
 
     public void requestStations() {
@@ -65,19 +69,21 @@ public class DRApiController
 
         @Override
         public void processFinished(String result) {
-
+            Log.i("DB",result);
             if(result != null)
-                drApiResponseParser.parseStationRequest(result);
+                listener.getResult(drApiResponseParser.parseStationRequest(result));
             else
                 Log.d("ERROR", "Unable to request the list of railway stations.");
         }
     }
 
-    private class RequestStationDepartingTrains implements AsyncResponse {
+    private class RequestStationDepartingTrains implements AsyncResponse
+    {
 
         private String stationName;
 
-        public RequestStationDepartingTrains(String stationName) {
+        public RequestStationDepartingTrains(String stationName)
+        {
 
             this.stationName = stationName;
             String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
@@ -85,10 +91,11 @@ public class DRApiController
         }
 
         @Override
-        public void processFinished(String result) {
+        public void processFinished(String result)
+        {
 
-            if(result != null)
-                drApiResponseParser.parseStationDepartingTrains(result, stationName);
+            if (result != null)
+                listener.getResult(drApiResponseParser.parseStationDepartingTrains(result, stationName));
             else
                 Log.d("ERROR", "Unable to parse the list of departing trains");
         }

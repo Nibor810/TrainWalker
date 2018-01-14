@@ -1,5 +1,8 @@
 package com.example.robin.trainwalker;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 /**
  * Created by robin on 12-1-2018.
  */
@@ -27,11 +30,11 @@ public class ChosenTrainSingleton {
         this.chosenOriginStation = chosenOriginStation;
     }
 
-    public String getChosenDestinationStation() {
-        return chosenDestinationStation;
-    }
-
     public void setChosenDestinationStation(String chosenDestinationStation) {
         this.chosenDestinationStation = chosenDestinationStation;
+    }
+
+    public String getChosenDestinationStation() {
+        return chosenDestinationStation;
     }
 }

@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class HomeFragment extends Fragment implements PopUpCallBack {
-
+public class HomeFragment extends Fragment{
     private BottomNavigationView navigation;
     private Button favoriteTrainButton;
     private Button differentTrainButton;
@@ -48,12 +47,7 @@ public class HomeFragment extends Fragment implements PopUpCallBack {
 
     private void onFavoriteTrainButtonClicked() {
         if(hasFavoriteTrain())
-            showPopup();
-    }
-
-    private void showPopup(){
-        CanIMakeItPopup customDialog = new CanIMakeItPopup(this.getContext(),this);
-        customDialog.show();
+            goToMapFragment();
     }
 
     private boolean hasFavoriteTrain() {
@@ -72,10 +66,5 @@ public class HomeFragment extends Fragment implements PopUpCallBack {
         transaction.replace(R.id.main_frame,MapFragment.newInstance());
         transaction.commit();
         navigation.setSelectedItemId(R.id.navigation_map);
-    }
-
-    @Override
-    public void doAfterPopup() {
-        goToMapFragment();
     }
 }

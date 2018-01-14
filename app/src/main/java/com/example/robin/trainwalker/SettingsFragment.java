@@ -53,10 +53,7 @@ public class SettingsFragment extends Fragment {
         SharedPreferences sharedPref = getContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
         String startStation = sharedPref.getString("originStation"," ");
         String endStation = sharedPref.getString("destinationStation"," ");
-
         return startStation + " - " + endStation;
-
-
     }
 
     private void saveWalkingSpeed() {
@@ -64,9 +61,6 @@ public class SettingsFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("WalkingSpeed", walkspeedTextBox.getText().toString());
         editor.commit();
-
-        StationDBhelper db = new StationDBhelper(getContext());
-        db.testDatabase();
     }
 
     private String getWalkingSpeed(){

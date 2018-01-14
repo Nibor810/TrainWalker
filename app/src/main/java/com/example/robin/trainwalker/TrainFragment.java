@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-public class TrainFragment extends Fragment implements PopUpCallBack {
+public class TrainFragment extends Fragment{
     Button chooseStationsButton;
     BottomNavigationView navigation;
     AutoCompleteTextView originStation;
@@ -39,8 +39,9 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
         originStation = view.findViewById(R.id.train_autoCompleteBeginStation);
         destinationStation = view.findViewById(R.id.train_autoCompleteEndStation);
         chooseStationsButton.setOnClickListener(view1 -> {
-            //TODO: Validate if input is legal
-                showPopup();
+            //TODO: Prioriteit: Laag, Validate if input is legal.
+            saveChosenTrain();
+            goToMapFragment();
         });
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_dropdown_item_1line, new StationDBhelper(this.getContext()).getAllStationNames());
@@ -52,12 +53,6 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
         return view;
     }
 
-
-    private void showPopup(){
-        CanIMakeItPopup customDialog =new CanIMakeItPopup(this.getContext(),this);
-        customDialog.show();
-    }
-
     private void goToMapFragment(){
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame,MapFragment.newInstance());
@@ -65,14 +60,8 @@ public class TrainFragment extends Fragment implements PopUpCallBack {
         navigation.setSelectedItemId(R.id.navigation_map);
     }
 
-    @Override
-    public void doAfterPopup() {
-        saveChosenTrain();
-        goToMapFragment();
-    }
-
     private void saveChosenTrain() {
-        ChosenTrainSingleton.getInstance().setChosenDestinationStation(destinationStation.getText().toString());
         ChosenTrainSingleton.getInstance().setChosenOriginStation(originStation.getText().toString());
+        ChosenTrainSingleton.getInstance().setChosenDestinationStation(destinationStation.getText().toString());
     }
 }

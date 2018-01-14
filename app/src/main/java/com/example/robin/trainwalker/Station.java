@@ -1,14 +1,16 @@
 package com.example.robin.trainwalker;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by robin on 10-1-2018.
  */
 
 public class Station {
     private String name;
-    private GeoCoordinate coordinate;
+    private LatLng coordinate;
 
-    public Station(String name, GeoCoordinate coordinate) {
+    public Station(String name, LatLng coordinate) {
         this.name = name;
         this.coordinate = coordinate;
     }
@@ -17,7 +19,7 @@ public class Station {
         return name;
     }
 
-    public GeoCoordinate getCoordinate() {
+    public LatLng getCoordinate() {
         return coordinate;
     }
 
