@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame,HomeFragment.newInstance());
         transaction.commit();
+        //TODO: Prioriteit: Hoog, haal alle stations op, 1 keer per week ongeveer, en plaats deze in database.
     }
 
 }
