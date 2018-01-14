@@ -49,6 +49,7 @@ public class CanIMakeItPopup extends Dialog{
         super(context);
         this.callBack = callBack;
         this.travelTime = travelTime;
+        //TODO Prioriteit: Midden, verwerk eigen loopsnelheid.
         this.originStation = originStation;
         this.destinationStation = destinationStation;
     }
@@ -87,15 +88,12 @@ public class CanIMakeItPopup extends Dialog{
         for (Train train:trains) {
             Log.i("DATE", train.getDepartureTime()+" - "+train.getStartStation());
         }
-        //TODO: Prioriteit: Hoog,  make sure dates is sorted for early to late
-        //2018-01-14T23:10:00+0100
         if(!trains.isEmpty()) {
             List<Date> dates = new ArrayList<>();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+0100'");
             for (Train train:trains) {
                 Log.i("DATE", train.getDepartureTime());
             }
-
             for (Train train:trains) {
                 Log.i("DATE", train.getDepartureTime());
                 try {
