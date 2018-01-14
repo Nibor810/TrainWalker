@@ -75,24 +75,24 @@ public class DRApiController
 
     private class RequestStationDepartingTrains implements AsyncResponse {
 
-    private String stationName;
+        private String stationName;
 
-    public RequestStationDepartingTrains(String stationName) {
+        public RequestStationDepartingTrains(String stationName) {
 
-        this.stationName = stationName;
-        String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
-        new RequestController(username, password, urlString, this).execute();
+            this.stationName = stationName;
+            String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
+            new RequestController(username, password, urlString, this).execute();
+        }
+
+        @Override
+        public void processFinished(String result) {
+
+            if(result != null)
+                drApiResponseParser.parseStationDepartingTrains(result, stationName);
+            else
+                Log.d("ERROR", "Unable to parse the list of departing trains");
+        }
     }
-
-    @Override
-    public void processFinished(String result) {
-
-        if(result != null)
-            drApiResponseParser.parseStationDepartingTrains(result, stationName);
-        else
-            Log.d("ERROR", "Unable to parse the list of departing trains");
-    }
-}
 
     private class RequestStationInterruption implements AsyncResponse {
 
