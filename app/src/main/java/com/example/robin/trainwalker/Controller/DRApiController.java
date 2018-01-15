@@ -91,7 +91,7 @@ public class DRApiController
         {
 
             this.stationName = stationName;
-            String urlString = fixUrlUnsafeCharacters("https://webservices.ns.nl/ns-api-avt?station=" + stationName);
+            String urlString = fixUrlUnsafeCharacters("https://webservices.ns.nl/ns-api-avt?station=" + this.stationName);
             new RequestController(username, password, urlString, this).execute();
         }
 
