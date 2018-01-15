@@ -101,4 +101,21 @@ class RouteDataParser {
         }
         return durationInSeconds;
     }
+
+    public int parseWalkingDistanceInMeters(JSONObject jObject) {
+        List<List<LatLng>> routes = new ArrayList<>();
+        int distanceInMeters = 0;
+        JSONArray jRoutes;
+        try {
+            jRoutes = jObject.getJSONArray("routes");
+            JSONArray legs = jRoutes.getJSONObject(0).getJSONArray("legs");
+            JSONObject leg = legs.getJSONObject(0);
+            distanceInMeters = leg.getJSONObject("distance").getInt("value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return distanceInMeters;
+    }
 }

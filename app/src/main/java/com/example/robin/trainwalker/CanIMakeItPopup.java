@@ -2,6 +2,7 @@ package com.example.robin.trainwalker;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -43,15 +44,31 @@ public class CanIMakeItPopup extends Dialog{
     ProgressBar progressBar;
     Station originStation;
     Station destinationStation;
-    int travelTime;
+    int travelTimeInMinutes;
+    int distanceInMeters;
 
-    public CanIMakeItPopup(@NonNull Context context, PopUpCallBack callBack, int travelTime, Station originStation, Station destinationStation) {
+    public CanIMakeItPopup(@NonNull Context context, PopUpCallBack callBack, int travelDistanceInMeters, Station originStation, Station destinationStation) {
         super(context);
         this.callBack = callBack;
-        this.travelTime = travelTime;
-        //TODO Prioriteit: Midden, verwerk eigen loopsnelheid.
+        this.distanceInMeters = travelDistanceInMeters;
+        this.travelTimeInMinutes = getTravelTimeInMinutes(travelDistanceInMeters);
+        Log.i("TIME","reistijd: "+travelTimeInMinutes);
         this.originStation = originStation;
         this.destinationStation = destinationStation;
+    }
+
+    private int getTravelTimeInMinutes(float distanceInMeters){
+        float walkingSpeedInKMPU = Float.valueOf(getWalkingSpeed());
+        Log.i("TIME","afstand: "+distanceInMeters);
+        Log.i("TIME","walkingSpeed: "+walkingSpeedInKMPU);
+        float timeInMinutes = ((distanceInMeters/1000)/walkingSpeedInKMPU)*60;
+        Log.i("TIME","tijd: "+timeInMinutes);
+        return Math.round(timeInMinutes);
+    }
+
+    private String getWalkingSpeed(){
+        SharedPreferences sharedPref = getContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
+        return sharedPref.getString("WalkingSpeed","4.7");
     }
 
     @Override
@@ -123,7 +140,8 @@ public class CanIMakeItPopup extends Dialog{
 
     private Date calculateTrainDepartureTime(){
         long currentTimeInMillis = Calendar.getInstance().getTimeInMillis();
-        Date arrivalTime = new Date(currentTimeInMillis +(travelTime*1000));
+        Date arrivalTime = new Date(currentTimeInMillis +(travelTimeInMinutes*60*1000));
+        Log.i("TIME", arrivalTime.toString());
         return arrivalTime;
     }
 }

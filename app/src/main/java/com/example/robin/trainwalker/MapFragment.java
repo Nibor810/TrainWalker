@@ -237,7 +237,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
             RouteDataParser dataParser = new RouteDataParser();
             //drawRoute();
             route = dataParser.parseRoutesInfo(response);
-            showPopup(dataParser.parseWalkingTimeInSeconds(response));
+            showPopup(dataParser.parseWalkingDistanceInMeters(response));
             //TODO: Prioriteit: Laag, Route opslaan zodat bij het verlaten van de fragment de route niet opnieuw opgehaalt hoeft te worden.
         });
     }

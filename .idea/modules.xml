@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TrainWalker.iml" filepath="$PROJECT_DIR$/TrainWalker.iml" />
+      <module fileurl="file://C:\SCHOOL\Git Jaar 2\IPR TrainWalker\TrainWalker\TrainWalker.iml" filepath="C:\SCHOOL\Git Jaar 2\IPR TrainWalker\TrainWalker\TrainWalker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\SCHOOL\Git Jaar 2\IPR TrainWalker\TrainWalker\app\app.iml" filepath="C:\SCHOOL\Git Jaar 2\IPR TrainWalker\TrainWalker\app\app.iml" />
     </modules>
   </component>
 </project>
