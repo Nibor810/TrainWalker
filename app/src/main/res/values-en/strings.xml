@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TrainWalker</string>
+    <string name="title_home">Home</string>
+    <string name="title_map">Map</string>
+    <string name="title_trains">Trains</string>
+    <string name="title_settings">Settings</string>
+    <string name="settings_walkspeedtext">Average Walking Speed</string>
+    <string name="settings_favorite_train">Select Favorite Train</string>
+    <string name="settings_current_favorite_train_text">Current Favorite Train</string>
+    <string name="favorite_train_popup_start_station">Startstation</string>
+    <string name="favorite_train_popup_end_station">Endstation</string>
+    <string name="favorite_train_popup_save">Save</string>
+    <string name="row_train_depart_time_text">Departure Time</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="settings_title">Settings</string>
+    <string name="home_title">Welcome</string>
+    <string name="home_text">Welcome in the TrainWalker App! Make a choice!</string>
+    <string name="home_button_favorite_train">Favorite Train</string>
+    <string name="home_button_different_train">Different Train</string>
+    <string name="settings_kmpu">KM/H</string>
+    <string name="settings_cancel">Cancel</string>
+    <string name="train_select_origin_station">Select begin station</string>
+    <string name="train_select_destination_station">Select end Station</string>
+    <string name="train_button_accept">Confirm</string>
+    <string name="popup_can_u_make_it_continue">Continue</string>
+    <string name="popup_can_u_make_it_title">The next train you can make while walking departs at:</string>
+</resources>

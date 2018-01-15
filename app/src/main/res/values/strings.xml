@@ -4,8 +4,8 @@
     <string name="title_map">Kaart</string>
     <string name="title_trains">Treinen</string>
     <string name="title_settings">Instellingen</string>
-    <string name="hello_blank_fragment">Fragment Page Home</string>
-    <string name="settings_speedHintValue">5</string>
+    <string name="hello_blank_fragment" translatable="false">Fragment Page Home</string>
+    <string name="settings_speedHintValue" translatable="false">5</string>
     <string name="settings_title">Instellingen</string>
     <string name="settings_walkspeedtext">Gemiddelde Loopsnelheid</string>
     <string name="settings_favorite_train">Favoriete Trein Instellen</string>
@@ -14,15 +14,15 @@
     <string name="favorite_train_popup_end_station">Eindstation</string>
     <string name="favorite_train_popup_save">Opslaan</string>
     <string name="row_train_depart_time_text">Vertrektijd</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Kaart</string>
     <string name="home_title">Welkom</string>
     <string name="home_text">Welkom bij de TrainWalker App! Maak uw keuze!</string>
     <string name="home_button_favorite_train">Favorite trein</string>
     <string name="home_button_different_train">Andere trein</string>
-    <string name="settings_kmpu">KM/PU</string>
+    <string name="settings_kmpu">KM/U</string>
     <string name="settings_cancel">Annuleren</string>
-    <string name="train_select_origin_station">Selecteer begin Station</string>
-    <string name="train_select_destination_station">Selecteer bestemmings Station</string>
+    <string name="train_select_origin_station">Selecteer begin station</string>
+    <string name="train_select_destination_station">Selecteer bestemmings station</string>
     <string name="train_button_accept">Bevestigen</string>
     <string name="popup_can_u_make_it_title">Is de eerstvolgende trein die lopent haalbaar is vertrekt om: </string>
     <string name="popup_can_u_make_it_continue">Doorgaan</string>
