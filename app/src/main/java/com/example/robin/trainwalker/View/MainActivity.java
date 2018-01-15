@@ -59,12 +59,13 @@ public class MainActivity extends AppCompatActivity{
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_frame,HomeFragment.newInstance());
+        HomeFragment homeFragment = HomeFragment.newInstance();
+        transaction.replace(R.id.main_frame,homeFragment);
         transaction.commit();
-        updateDatabase();
+        updateDatabase(homeFragment);
     }
 
-    private void updateDatabase(){
+    private void updateDatabase(HomeFragment homeFragment){
         if(needToUpdateDatabase()) {
 
             //TODO: Prioriteit: Midden, Popup dat er data wordt opgehaalt.
@@ -72,7 +73,10 @@ public class MainActivity extends AppCompatActivity{
             new DRApiController(object -> {
                 StationDBhelper db = new StationDBhelper(getApplicationContext());
                 db.addStations((List<Station>) object);
+                homeFragment.removeProgressBar();
             }).requestStations();
+        } else {
+            homeFragment.removeProgressBar();
         }
     }
 

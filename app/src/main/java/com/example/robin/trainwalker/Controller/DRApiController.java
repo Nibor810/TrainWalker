@@ -69,7 +69,6 @@ public class DRApiController
 
         @Override
         public void processFinished(String result) {
-            Log.i("DB",result);
             if(result != null)
                 listener.getResult(drApiResponseParser.parseStationRequest(result));
             else

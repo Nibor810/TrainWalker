@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.robin.trainwalker.Controller.ChosenTrainSingleton;
 import com.example.robin.trainwalker.R;
@@ -16,6 +17,7 @@ public class HomeFragment extends Fragment{
     private BottomNavigationView navigation;
     private Button favoriteTrainButton;
     private Button differentTrainButton;
+    private ProgressBar progressBar;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -28,6 +30,12 @@ public class HomeFragment extends Fragment{
         super.onCreate(savedInstanceState);
     }
 
+    public void removeProgressBar(){
+        if((progressBar.getParent()) != null) {
+            ((ViewGroup) progressBar.getParent()).removeView(progressBar);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -35,6 +43,7 @@ public class HomeFragment extends Fragment{
         navigation = getActivity().findViewById(R.id.navigation);
         favoriteTrainButton = view.findViewById(R.id.home_button_favoriteTrain);
         differentTrainButton = view.findViewById(R.id.home_bottun_differentTrain);
+        progressBar = view.findViewById(R.id.home_progressbar);
         favoriteTrainButton.setOnClickListener(view1 -> {
             ChosenTrainSingleton.getInstance().setChosenOriginStation(null);
             ChosenTrainSingleton.getInstance().setChosenDestinationStation(null);
@@ -43,6 +52,7 @@ public class HomeFragment extends Fragment{
         differentTrainButton.setOnClickListener(view12 -> {
             onDifferentTrainButtonClicked();
         });
+        progressBar.setIndeterminate(true);
         return view;
     }
 
