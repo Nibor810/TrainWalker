@@ -25,4 +25,5 @@
     <string name="train_button_accept">Confirm</string>
     <string name="popup_can_u_make_it_continue">Continue</string>
     <string name="popup_can_u_make_it_title">The next train you can make while walking departs at:</string>
+    <string name="popup_database_waiting_for_data">One moment please, the database is updating.</string>
 </resources>

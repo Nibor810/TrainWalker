@@ -57,21 +57,22 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        updateDatabase();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame,HomeFragment.newInstance());
         transaction.commit();
-        updateDatabase();
+        //updateDatabase();
     }
 
     private void updateDatabase(){
         if(needToUpdateDatabase()) {
-
-            //TODO: Prioriteit: Midden, Popup dat er data wordt opgehaalt.
-
+            UpdatingDatabasePopup customDialog =new UpdatingDatabasePopup(getApplicationContext());
             new DRApiController(object -> {
                 StationDBhelper db = new StationDBhelper(getApplicationContext());
                 db.addStations((List<Station>) object);
+                saveLatestStationGetDate(Calendar.getInstance().getTime());
+                customDialog.doneWithDatabaseUpdate();
             }).requestStations();
         }
     }
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity{
         Date currentDate = Calendar.getInstance().getTime();
         Date lastDatePlusAWeek = new Date(getLatestStationGetDate().getTime()+(1000*60*60*24*7));
         if(currentDate.after(lastDatePlusAWeek)){
-            saveLatestStationGetDate(currentDate);
             return true;
         }
         return false;
