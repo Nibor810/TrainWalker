@@ -113,6 +113,7 @@ public class DRApiController
         public void processFinished(String result) {
 
             //TODO: Prioriteit Laag: Parse Result.
+
             System.out.println(result);
         }
     }

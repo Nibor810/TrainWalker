@@ -62,7 +62,9 @@ public class MainActivity extends AppCompatActivity{
 
     private void updateDatabase(){
         if(needToUpdateDatabase()) {
+
             //TODO: Prioriteit: Laag, Popup dat er data wordt opgehaalt.
+
             new DRApiController(new ResponseListener() {
                 @Override
                 public void getResult(Object object) {

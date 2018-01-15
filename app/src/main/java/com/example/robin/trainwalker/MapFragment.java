@@ -80,7 +80,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
+
                 //TODO: Prioriteit: Laag, wat te doen als locatie verandert.
+
             }
         };
         originStation = getOriginStation();
@@ -179,7 +181,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
                         if (cameraPosition == null)
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
                         map.getUiSettings().setMyLocationButtonEnabled(false);
+
                         //TODO: Prioriteit: Midden, popup dat de route vanaf huidige locatie niet kan worden berekent
+
                     }
                 });
             }
@@ -238,7 +242,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
             //drawRoute();
             route = dataParser.parseRoutesInfo(response);
             showPopup(dataParser.parseWalkingDistanceInMeters(response));
+
             //TODO: Prioriteit: Laag, Route opslaan zodat bij het verlaten van de fragment de route niet opnieuw opgehaalt hoeft te worden.
+
         });
     }
 
