@@ -59,11 +59,16 @@ public class DRApiController
         new RequestTravelOptions(fromStation, toStation);
     }
 
+    private String fixUrlUnsafeCharacters(String unsaveUrl) {
+
+        return unsaveUrl.replaceAll("\\s","+");
+    }
+
     private class RequestStations implements AsyncResponse {
 
         public RequestStations() {
 
-            String urlString = "http://webservices.ns.nl/ns-api-stations-v2";
+            String urlString = fixUrlUnsafeCharacters("http://webservices.ns.nl/ns-api-stations-v2");
             new RequestController(username, password, urlString, this).execute();
         }
 
@@ -86,7 +91,7 @@ public class DRApiController
         {
 
             this.stationName = stationName;
-            String urlString = "https://webservices.ns.nl/ns-api-avt?station=" + stationName;
+            String urlString = fixUrlUnsafeCharacters("https://webservices.ns.nl/ns-api-avt?station=" + stationName);
             new RequestController(username, password, urlString, this).execute();
         }
 
@@ -105,7 +110,7 @@ public class DRApiController
 
         public RequestStationInterruption(String stationName, boolean planned, boolean unplanned) {
 
-            String urlString = "http://webservices.ns.nl/ns-api-storingen?station=" + stationName + "&actual=" + unplanned + "&unplanned=" + unplanned;
+            String urlString = fixUrlUnsafeCharacters("http://webservices.ns.nl/ns-api-storingen?station=" + stationName + "&actual=" + unplanned + "&unplanned=" + unplanned);
             new RequestController(username, password, urlString, this).execute();
         }
 
@@ -127,10 +132,10 @@ public class DRApiController
 
             //TODO: Prioriteit Midden, request trafel options with a given time.
 
-            this.fromStation = fromStation.replaceAll("\\s","+");
-            this.toStation = toStation.replaceAll("\\s","+");
+            this.fromStation = fromStation;
+            this.toStation = toStation;
 
-            String urlString = "https://webservices.ns.nl/ns-api-treinplanner?fromStation=" + this.fromStation + "&toStation=" + this.toStation;
+            String urlString = fixUrlUnsafeCharacters("https://webservices.ns.nl/ns-api-treinplanner?fromStation=" + this.fromStation + "&toStation=" + this.toStation);
             new RequestController(username, password, urlString, this).execute();
         }
 
