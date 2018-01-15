@@ -127,10 +127,10 @@ public class DRApiController
 
             //TODO: Prioriteit Midden, request trafel options with a given time.
 
-            this.fromStation = fromStation;
-            this.toStation = toStation;
+            this.fromStation = fromStation.replaceAll("\\s","+");
+            this.toStation = toStation.replaceAll("\\s","+");
 
-            String urlString = "https://webservices.ns.nl/ns-api-treinplanner?fromStation=" + fromStation + "&toStation=" + toStation;
+            String urlString = "https://webservices.ns.nl/ns-api-treinplanner?fromStation=" + this.fromStation + "&toStation=" + this.toStation;
             new RequestController(username, password, urlString, this).execute();
         }
 

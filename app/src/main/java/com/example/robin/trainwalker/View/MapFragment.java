@@ -103,8 +103,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
         if(ChosenTrainSingleton.getInstance().getChosenOriginStation() == null){
             SharedPreferences sharedPref = getContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
             station = sharedPref.getString("originStation"," ");
+            Log.i("CHOOSE","origin not Singleton");
         } else {
             station = ChosenTrainSingleton.getInstance().getChosenOriginStation();
+            Log.i("CHOOSE","origin Singleton");
         }
         return db.getStation(station);
     }
@@ -112,11 +114,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PopUpCa
     private Station getDestinationStation() {
         StationDBhelper db = new StationDBhelper(this.getContext());
         String station;
-        if(ChosenTrainSingleton.getInstance().getChosenOriginStation() == null){
+        if(ChosenTrainSingleton.getInstance().getChosenDestinationStation() == null){
             SharedPreferences sharedPref = getContext().getSharedPreferences("MY_PREF",Context.MODE_PRIVATE);
             station = sharedPref.getString("destinationStation"," ");
+            Log.i("CHOOSE","destination not Singleton");
         } else {
-            station = ChosenTrainSingleton.getInstance().getChosenOriginStation();
+            station = ChosenTrainSingleton.getInstance().getChosenDestinationStation();
+            Log.i("CHOOSE","destination Singleton");
         }
         return db.getStation(station);
     }
