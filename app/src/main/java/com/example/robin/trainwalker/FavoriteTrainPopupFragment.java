@@ -33,7 +33,6 @@ public class FavoriteTrainPopupFragment extends Dialog {
         originStation = findViewById(R.id.ftPopup_textBoxBeginStation);
         destinationStation =findViewById(R.id.ftPopup_textBoxEndStation);
         saveButton.setOnClickListener(view -> {
-            //TODO: Prioriteit: Laag, Validate if input is legal.
             saveStations();
             dismiss();
         });

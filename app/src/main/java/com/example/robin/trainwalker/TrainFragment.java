@@ -39,7 +39,6 @@ public class TrainFragment extends Fragment{
         originStation = view.findViewById(R.id.train_autoCompleteBeginStation);
         destinationStation = view.findViewById(R.id.train_autoCompleteEndStation);
         chooseStationsButton.setOnClickListener(view1 -> {
-            //TODO: Prioriteit: Laag, Validate if input is legal.
             saveChosenTrain();
             goToMapFragment();
         });
