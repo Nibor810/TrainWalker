@@ -1,4 +1,4 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.Controller;
 
 import android.util.Log;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * Created by robin on 12-1-2018.
  */
 
-class RouteDataParser {
+public class RouteDataParser {
     public List<List<LatLng>> parseRoutesInfo(JSONObject jObject) {
         List<List<LatLng>> routes = new ArrayList<>();
         int distanceInMeters = 0;

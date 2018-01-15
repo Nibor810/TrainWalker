@@ -1,4 +1,4 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.View;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,9 +8,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.example.robin.trainwalker.Controller.DRApiController;
+import com.example.robin.trainwalker.Model.Station;
+import com.example.robin.trainwalker.R;
+import com.example.robin.trainwalker.Controller.StationDBhelper;
 
 import java.util.Calendar;
 import java.util.Date;

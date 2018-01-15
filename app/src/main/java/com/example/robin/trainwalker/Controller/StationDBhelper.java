@@ -1,4 +1,4 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.Controller;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.robin.trainwalker.Model.Station;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;

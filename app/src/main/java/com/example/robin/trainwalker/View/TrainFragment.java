@@ -1,4 +1,4 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.View;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
+import com.example.robin.trainwalker.Controller.ChosenTrainSingleton;
+import com.example.robin.trainwalker.R;
+import com.example.robin.trainwalker.Controller.StationDBhelper;
 
 public class TrainFragment extends Fragment{
     Button chooseStationsButton;
@@ -54,7 +58,7 @@ public class TrainFragment extends Fragment{
 
     private void goToMapFragment(){
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_frame,MapFragment.newInstance());
+        transaction.replace(R.id.main_frame, MapFragment.newInstance());
         transaction.commit();
         navigation.setSelectedItemId(R.id.navigation_map);
     }

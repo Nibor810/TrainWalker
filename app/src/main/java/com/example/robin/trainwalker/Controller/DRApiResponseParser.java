@@ -1,7 +1,9 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.Controller;
 
 import android.util.Log;
 
+import com.example.robin.trainwalker.Model.Station;
+import com.example.robin.trainwalker.Model.Train;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -12,8 +14,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Arthur on 12-1-2018.

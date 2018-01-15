@@ -1,4 +1,4 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.Model;
 
 import com.google.android.gms.maps.model.LatLng;
 

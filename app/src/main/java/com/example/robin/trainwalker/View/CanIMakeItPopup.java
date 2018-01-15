@@ -1,29 +1,23 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.View;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.Task;
+import com.example.robin.trainwalker.Controller.DRApiController;
+import com.example.robin.trainwalker.Model.Station;
+import com.example.robin.trainwalker.Model.Train;
+import com.example.robin.trainwalker.Controller.PopUpCallBack;
+import com.example.robin.trainwalker.R;
+import com.example.robin.trainwalker.Controller.ResponseListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

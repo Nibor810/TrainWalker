@@ -1,17 +1,17 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.Model;
 
 /**
  * Created by robin on 15-12-2017.
  */
 
-class Train {
+public class Train {
     private String startStation;
     private String endStation;
     private String departureTime;
     private String trainType;
     private String departureTrack;
 
-    Train(String startStation, String endStation, String departureTime, String trainType, String departureTrack) {
+    public Train(String startStation, String endStation, String departureTime, String trainType, String departureTrack) {
         this.startStation = startStation;
         this.endStation = endStation;
         this.departureTime = departureTime;
@@ -19,7 +19,7 @@ class Train {
         this.departureTrack = departureTrack;
     }
 
-    Train(String startStation, String endStation){
+    public Train(String startStation, String endStation){
         this.startStation = startStation;
         this.endStation = endStation;
         this.departureTime = "-";

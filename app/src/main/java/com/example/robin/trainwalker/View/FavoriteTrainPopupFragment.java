@@ -1,4 +1,4 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.View;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,6 +9,9 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
+import com.example.robin.trainwalker.R;
+import com.example.robin.trainwalker.Controller.StationDBhelper;
 
 /**
  * Created by robin on 15-12-2017.

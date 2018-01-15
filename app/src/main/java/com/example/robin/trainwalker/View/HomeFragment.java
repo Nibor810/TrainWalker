@@ -1,4 +1,4 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.View;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.robin.trainwalker.R;
 
 public class HomeFragment extends Fragment{
     private BottomNavigationView navigation;
@@ -56,14 +58,14 @@ public class HomeFragment extends Fragment{
 
     private void goToTrainFragment(){
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_frame,TrainFragment.newInstance());
+        transaction.replace(R.id.main_frame, TrainFragment.newInstance());
         transaction.commit();
         navigation.setSelectedItemId(R.id.navigation_trains);
     }
 
     private void goToMapFragment(){
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_frame,MapFragment.newInstance());
+        transaction.replace(R.id.main_frame, MapFragment.newInstance());
         transaction.commit();
         navigation.setSelectedItemId(R.id.navigation_map);
     }

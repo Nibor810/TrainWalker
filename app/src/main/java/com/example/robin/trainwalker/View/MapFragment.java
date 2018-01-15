@@ -1,4 +1,4 @@
-package com.example.robin.trainwalker;
+package com.example.robin.trainwalker.View;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,6 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.Request;
+import com.example.robin.trainwalker.Controller.ChosenTrainSingleton;
+import com.example.robin.trainwalker.Controller.RouteDataParser;
+import com.example.robin.trainwalker.Model.Station;
+import com.example.robin.trainwalker.Controller.PopUpCallBack;
+import com.example.robin.trainwalker.R;
+import com.example.robin.trainwalker.Controller.StationDBhelper;
+import com.example.robin.trainwalker.Controller.VolleyManager;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
