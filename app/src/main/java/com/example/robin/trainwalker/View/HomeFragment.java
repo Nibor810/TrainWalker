@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.robin.trainwalker.Controller.ChosenTrainSingleton;
 import com.example.robin.trainwalker.R;
 
 public class HomeFragment extends Fragment{
@@ -35,6 +36,8 @@ public class HomeFragment extends Fragment{
         favoriteTrainButton = view.findViewById(R.id.home_button_favoriteTrain);
         differentTrainButton = view.findViewById(R.id.home_bottun_differentTrain);
         favoriteTrainButton.setOnClickListener(view1 -> {
+            ChosenTrainSingleton.getInstance().setChosenOriginStation(null);
+            ChosenTrainSingleton.getInstance().setChosenDestinationStation(null);
             onFavoriteTrainButtonClicked();
         });
         differentTrainButton.setOnClickListener(view12 -> {
