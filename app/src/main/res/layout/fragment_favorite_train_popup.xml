@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ftPopup_startStationText"
@@ -33,6 +34,7 @@
             android:layout_height="0dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:gravity="center"
             android:text="@string/favorite_train_popup_start_station"
@@ -59,7 +61,8 @@
             android:id="@+id/ftPopup_textBoxEndStation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ftPopup_textBoxEndStation"
             app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +71,7 @@
             android:id="@+id/ftPopup_textBoxEndStation"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:gravity="center"
             android:text="@string/favorite_train_popup_end_station"
@@ -90,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/popu_favtrain_cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -20,6 +20,7 @@ import com.example.robin.trainwalker.Controller.StationDBhelper;
 public class FavoriteTrainPopupFragment extends Dialog {
     public Context context;
     public Button saveButton;
+    public Button cancelButton;
     public AutoCompleteTextView originStation;
     public AutoCompleteTextView destinationStation;
     public FavoriteTrainPopupFragment(@NonNull Context context) {
@@ -33,10 +34,14 @@ public class FavoriteTrainPopupFragment extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fragment_favorite_train_popup);
         saveButton = findViewById(R.id.popup_favtrain_save);
+        cancelButton = findViewById(R.id.popu_favtrain_cancelButton);
         originStation = findViewById(R.id.ftPopup_textBoxBeginStation);
         destinationStation =findViewById(R.id.ftPopup_textBoxEndStation);
         saveButton.setOnClickListener(view -> {
             saveStations();
+            dismiss();
+        });
+        cancelButton.setOnClickListener(view -> {
             dismiss();
         });
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
