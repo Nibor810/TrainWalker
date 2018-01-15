@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity{
     private void updateDatabase(){
         if(needToUpdateDatabase()) {
 
-            //TODO: Prioriteit: Laag, Popup dat er data wordt opgehaalt.
+            //TODO: Prioriteit: Midden, Popup dat er data wordt opgehaalt.
 
             new DRApiController(object -> {
                 StationDBhelper db = new StationDBhelper(getApplicationContext());
