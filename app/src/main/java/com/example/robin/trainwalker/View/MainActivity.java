@@ -57,17 +57,18 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        updateDatabase();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_frame,HomeFragment.newInstance());
+        Fragment selectedFragment = HomeFragment.newInstance();
+        transaction.replace(R.id.main_frame,selectedFragment);
         transaction.commit();
-        //updateDatabase();
+        updateDatabase(selectedFragment);
     }
 
-    private void updateDatabase(){
+    private void updateDatabase(Fragment selectedFragment){
         if(needToUpdateDatabase()) {
-            UpdatingDatabasePopup customDialog =new UpdatingDatabasePopup(getApplicationContext());
+            UpdatingDatabasePopup customDialog =new UpdatingDatabasePopup(selectedFragment.getContext());
+            customDialog.show();
             new DRApiController(object -> {
                 StationDBhelper db = new StationDBhelper(getApplicationContext());
                 db.addStations((List<Station>) object);
