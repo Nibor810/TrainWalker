@@ -65,12 +65,9 @@ public class MainActivity extends AppCompatActivity{
 
             //TODO: Prioriteit: Laag, Popup dat er data wordt opgehaalt.
 
-            new DRApiController(new ResponseListener() {
-                @Override
-                public void getResult(Object object) {
-                    StationDBhelper db = new StationDBhelper(getApplicationContext());
-                    db.addStations((List<Station>) object);
-                }
+            new DRApiController(object -> {
+                StationDBhelper db = new StationDBhelper(getApplicationContext());
+                db.addStations((List<Station>) object);
             }).requestStations();
         }
     }
