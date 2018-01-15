@@ -107,10 +107,8 @@ public class CanIMakeItPopup extends Dialog{
         }
         if(!trains.isEmpty()) {
             List<Date> dates = new ArrayList<>();
-
-            //TODO: Prioriteit Laag, preset date time in more user friendly format.
-
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+0100'");
+            SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm");
             for (Train train:trains) {
                 Log.i("DATE", train.getDepartureTime());
             }
@@ -126,7 +124,7 @@ public class CanIMakeItPopup extends Dialog{
             }
             for (Date date : dates) {
                 if (arrivalDate.before(date)) {
-                    return date.toString();
+                    return displayFormat.format(date);
                 }
             }
         }
