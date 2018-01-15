@@ -110,7 +110,7 @@ public class DRApiController
 
         public RequestStationInterruption(String stationName, boolean planned, boolean unplanned) {
 
-            String urlString = fixUrlUnsafeCharacters("http://webservices.ns.nl/ns-api-storingen?station=" + stationName + "&actual=" + unplanned + "&unplanned=" + unplanned);
+            String urlString = fixUrlUnsafeCharacters("http://webservices.ns.nl/ns-api-storingen?station=" + stationName + "&actual=" + planned + "&unplanned=" + unplanned);
             new RequestController(username, password, urlString, this).execute();
         }
 
