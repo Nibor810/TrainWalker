@@ -113,9 +113,6 @@ public class DRApiController
 
         @Override
         public void processFinished(String result) {
-
-            //TODO: Prioriteit Laag: Parse Result.
-
             System.out.println(result);
         }
     }
@@ -126,9 +123,6 @@ public class DRApiController
         private String toStation;
 
         public RequestTravelOptions(String fromStation, String toStation) {
-
-            //TODO: Prioriteit Midden, request trafel options with a given time.
-
             this.fromStation = fromStation;
             this.toStation = toStation;
 
