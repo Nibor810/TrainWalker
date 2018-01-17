@@ -2,6 +2,7 @@ package com.example.robin.trainwalker.Controller;
 
 import android.util.Log;
 
+import com.example.robin.trainwalker.Model.Intermediate;
 import com.example.robin.trainwalker.Model.Station;
 import com.example.robin.trainwalker.Model.Train;
 import com.google.android.gms.maps.model.LatLng;
@@ -192,6 +193,9 @@ public class DRApiResponseParser {
 
         List<Train> trains = new ArrayList<>();
         String departureTime = "";
+        String trainType = "";
+        String departureTrack = "";
+        List<Intermediate> intermediates = new ArrayList<>();
 
         try {
 
@@ -212,12 +216,69 @@ public class DRApiResponseParser {
                                 xmlPullParser.next();
                                 departureTime = xmlPullParser.getText();
                             }
+                            else if(xmlPullParser.getName().equals("ReisDeel")) {
+
+                                while (!(eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equals("ReisDeel"))) {
+
+                                    if(eventType == XmlPullParser.START_TAG) {
+
+                                        if(xmlPullParser.getName().equals("VervoerType")) {
+
+                                            //Skip to the content of the VervoerType tag.
+                                            xmlPullParser.next();
+                                            trainType = xmlPullParser.getText();
+                                        }
+                                        else if(xmlPullParser.getName().equals("ReisStop")) {
+
+                                            String intermediateStationName = "";
+                                            String intermediateTime = "";
+                                            String intermediateTrack = "";
+
+                                            while (!(eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equals("ReisStop"))) {
+
+                                                if(eventType == XmlPullParser.START_TAG) {
+
+                                                    if(xmlPullParser.getName().equals("Naam")) {
+
+                                                        //Skip to the content of the Naam tag.
+                                                        xmlPullParser.next();
+                                                        intermediateStationName = xmlPullParser.getText();
+                                                    }
+                                                    else if(xmlPullParser.getName().equals("Tijd")) {
+
+                                                        //Skip to the content of the Tijd tag.
+                                                        xmlPullParser.next();
+                                                        intermediateTime = xmlPullParser.getText();
+                                                    }
+                                                    else if(xmlPullParser.getName().equals("Spoor")) {
+
+                                                        //Skip to the content of the Spoor tag.
+                                                        xmlPullParser.next();
+                                                        intermediateTrack = xmlPullParser.getText();
+                                                    }
+                                                }
+
+                                                eventType = xmlPullParser.next();
+                                            }
+
+                                            intermediates.add(new Intermediate(intermediateStationName, intermediateTime, intermediateTrack));
+                                            intermediateStationName = "";
+                                            intermediateTime = "";
+                                            intermediateTrack = "";
+                                        }
+                                    }
+
+                                    eventType = xmlPullParser.next();
+                                }
+                            }
                         }
 
                         eventType = xmlPullParser.next();
                     }
 
-                    trains.add(new Train(startStation, endStation, departureTime, "", ""));
+                    departureTrack = intermediates.get(0).getSpoor();
+                    trains.add(new Train(startStation, endStation, departureTime, trainType, departureTrack));
+                    intermediates = new ArrayList<>();
                 }
 
                 eventType = xmlPullParser.next();
