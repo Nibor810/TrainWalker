@@ -262,9 +262,6 @@ public class DRApiResponseParser {
                                             }
 
                                             intermediates.add(new Intermediate(intermediateStationName, intermediateTime, intermediateTrack));
-                                            intermediateStationName = "";
-                                            intermediateTime = "";
-                                            intermediateTrack = "";
                                         }
                                     }
 
